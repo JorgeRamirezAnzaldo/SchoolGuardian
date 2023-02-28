@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const StudentEvaluation = require('./StudentEvaluation');
 
 const classEvaluationSchema = new Schema({
     classId : {
@@ -8,10 +7,9 @@ const classEvaluationSchema = new Schema({
         required: true
     },
     evaluationDate: {
-        type: Date,
+        type: String,
         required: true,
     },
-    //studentEvaluations: [StudentEvaluation]
     studentEvaluations: [{
         studentId:{
             type: Schema.Types.ObjectId, 

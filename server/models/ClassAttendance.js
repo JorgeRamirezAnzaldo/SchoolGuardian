@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const StudentAttendance = require('./StudentAttendance');
 
 const classAttendanceSchema = new Schema({
     classId: {
@@ -8,10 +7,9 @@ const classAttendanceSchema = new Schema({
         required: true
     },
     attendanceDate: {
-        type: Date,
+        type: String,
         required: true,
     },
-    //studentAttendances: [StudentAttendance]
     studentAttendances: [{
         studentId: {
             type: Schema.Types.ObjectId, 
