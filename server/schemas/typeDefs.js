@@ -62,6 +62,7 @@ const typeDefs = gql`
     registration: String!
     classes: [Class]
     tutor: Tutor
+    school: School
   }
 
 
