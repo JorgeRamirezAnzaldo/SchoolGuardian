@@ -80,42 +80,48 @@ const typeDefs = gql`
   }
 
   type Query {
-    students: [Student]
-    classes: [Class]
-    schools: [School]
-    professors: [Professor]
-    classAttendances(classId: ID!): [ClassAttendance]
-    classEvaluations(classId: ID!): [ClassEvaluation]
-    classAttendance(classId: ID!, attendanceDate: Date!): ClassAttendance
-    classEvaluation(classId: ID!, evaluationDate: Date!): ClassEvaluation
+
     tutor (email: String!): Tutor
-    professor (email: String!): Professor
-    student (registration: String!): Student
-    me: User
+    student (_id: ID!): Student
+    studentAttendance (studentId: ID!): [ClassAttendance]
+    studentEvaluation (studentId: ID!): [ClassEvaluation]
+
+
+    # students: [Student]
+    # classes: [Class]
+    # schools: [School]
+    # professors: [Professor]
+    # classAttendances(classId: ID!): [ClassAttendance]
+    # classEvaluations(classId: ID!): [ClassEvaluation]
+    # classAttendance(classId: ID!, attendanceDate: String!): ClassAttendance
+    # classEvaluation(classId: ID!, evaluationDate: String!): ClassEvaluation
+    # professor (email: String!): Professor
+    # student (registration: String!): Student
+    # me: User
   }
 
   input ClassAttendanceInput: {
     classId: ID!
-    attendanceDate: Date!
+    attendanceDate: String!
     studentAttendances: [StudentAttendance]
   }
 
   input ClassEvaluationInput: {
     classId: ID!
-    evaluationDate: Date!
+    evaluationDate: String!
     studentEvaluations: [StudentEvaluation]
   }
  
 
   type Mutation {
-    addSchool(name: String!, principal: ID): School
-    addClass(name: String!, grade: Int!, professor: ID, hour: String!): Class
-    addStudent(name: String!, grade: Int!, registration: String!): Student
-    addProfessor(name: String!, telephone: String!, email: String!, password: String!): Auth
-    addTutor(name: String!, telephone: String!, email: String!, password: String!): Auth
-    addClassAttendance(input: ClassAttendanceInput): ClassAttendance
-    addClassEvaluation(input: ClassEvaluationInput): ClassEvaluation
-    login(email: String!, password: String!): Auth
+    # addSchool(name: String!, principal: ID): School
+    # addClass(name: String!, grade: Int!, professor: ID, hour: String!): Class
+    # addStudent(name: String!, grade: Int!, registration: String!): Student
+    # addProfessor(name: String!, telephone: String!, email: String!, password: String!): Auth
+    # addTutor(name: String!, telephone: String!, email: String!, password: String!): Auth
+    # addClassAttendance(input: ClassAttendanceInput): ClassAttendance
+    # addClassEvaluation(input: ClassEvaluationInput): ClassEvaluation
+    # login(email: String!, password: String!): Auth
   }
 `;
 
