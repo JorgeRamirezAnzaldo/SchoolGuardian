@@ -13,7 +13,6 @@ const alertSchema = new Schema({
     from: {
         type: Schema.Types.ObjectId, 
         ref: "Professor",
-        required: true,
     },
     sign: {
         type: Boolean,

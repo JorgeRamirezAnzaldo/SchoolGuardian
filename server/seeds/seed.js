@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { School, Class, Professor, Student, Tutor, ClassAttendance, ClassEvaluation, User } = require('../models');
+const { School, Class, Professor, Student, Tutor, ClassAttendance, ClassEvaluation, User, Alert } = require('../models');
 
 
 const schoolData = require('./schoolData.json');
@@ -8,6 +8,7 @@ const classDataOxford = require('./classData.json');
 const classDataBoston = require('./classData.json');
 const studentDataOxford = require('./studentData.json');
 const userData = require('./userData.json');
+const alertData = require('./alertData.json');
 //const tutorDataOxford = require('./tutorData.json');
 
 db.once('open', async () => {
@@ -20,6 +21,7 @@ db.once('open', async () => {
   await Tutor.deleteMany({});
   await ClassAttendance.deleteMany({});
   await ClassEvaluation.deleteMany({});
+  await Alert.deleteMany({});
 
   const schools = await School.insertMany(schoolData);
   const users = await User.insertMany(userData);
@@ -27,8 +29,8 @@ db.once('open', async () => {
   const classesBoston = await Class.insertMany(classDataBoston);
   const professors = await Professor.insertMany(professorData);
   const studentsOxford = await Student.insertMany(studentDataOxford);
+  const alerts = await Alert.insertMany(alertData);
   //const tutorsOxford = await Tutor.insertMany(tutorDataOxford);
-
 
   professors[0].userId = users[0]._id
   await professors[0].save();
@@ -38,15 +40,11 @@ db.once('open', async () => {
   await professors[2].save();
   professors[3].userId = users[3]._id
   await professors[3].save();
- 
 
   const tutorsOxford = new Tutor({
     userId: users[4]._id,
   })
-
   await tutorsOxford.save();
-
-
 
   for (newClass of classesOxford) {
 
@@ -78,7 +76,6 @@ db.once('open', async () => {
     tutorsOxford.students.push(newStudent._id);
     await tutorsOxford.save();
   }
-
 
   for (newClass of classesBoston) {
 
@@ -133,6 +130,15 @@ db.once('open', async () => {
     attended: true
   });
   await classAttendanceHistory.save();
+
+  for (alert of alerts){
+    alert.from = professors[0]._id;
+    await alert.save();
+  }
+  studentsOxford[0].alerts.push(alerts[0]._id);
+  await studentsOxford[0].save();
+  studentsOxford[1].alerts.push(alerts[1]._id);
+  await studentsOxford[1].save();
 
   console.log('all done!');
   process.exit(0);

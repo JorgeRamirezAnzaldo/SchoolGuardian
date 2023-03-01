@@ -100,6 +100,11 @@ const typeDefs = gql`
     # student (registration: String!): Student
     # me: User
   }
+
+  type Mutation{
+    login (email: String!, password: String!): Auth
+    signAlert(_id: ID!, sign: Boolean!): Alert
+  }
  
 
 
