@@ -54,7 +54,6 @@ const typeDefs = gql`
     classes: [Class]
   }
 
-
   type Student {
     _id: ID
     name: String!
@@ -63,8 +62,8 @@ const typeDefs = gql`
     classes: [Class]
     tutor: Tutor
     school: School
+    alerts: [Alert]
   }
-
 
   type Tutor {
     _id: ID
@@ -73,6 +72,14 @@ const typeDefs = gql`
     email: String!
     password: String!
     students: [Student]
+  }
+
+  type Alert {
+    _id: ID
+    subject: String!
+    message: String!
+    from: Professor!
+    sign: Boolean!
   }
 
   type Auth {
