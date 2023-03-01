@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { School, Class, Professor, Student, Tutor, ClassAttendance, ClassEvaluation } = require('../models');
+const { School, Class, Professor, Student, Tutor, ClassAttendance, ClassEvaluation, User } = require('../models');
 
 
 const schoolData = require('./schoolData.json');
@@ -7,11 +7,13 @@ const professorData = require('./professorData.json');
 const classDataOxford = require('./classData.json');
 const classDataBoston = require('./classData.json');
 const studentDataOxford = require('./studentData.json');
-const tutorDataOxford = require('./tutorData.json');
+const userData = require('./userData.json');
+//const tutorDataOxford = require('./tutorData.json');
 
 db.once('open', async () => {
 
   await School.deleteMany({});
+  await User.deleteMany({});
   await Class.deleteMany({});
   await Professor.deleteMany({});
   await Student.deleteMany({});
@@ -20,11 +22,31 @@ db.once('open', async () => {
   await ClassEvaluation.deleteMany({});
 
   const schools = await School.insertMany(schoolData);
+  const users = await User.insertMany(userData);
   const classesOxford = await Class.insertMany(classDataOxford);
   const classesBoston = await Class.insertMany(classDataBoston);
   const professors = await Professor.insertMany(professorData);
   const studentsOxford = await Student.insertMany(studentDataOxford);
-  const tutorsOxford = await Tutor.insertMany(tutorDataOxford);
+  //const tutorsOxford = await Tutor.insertMany(tutorDataOxford);
+
+
+  professors[0].userId = users[0]._id
+  await professors[0].save();
+  professors[1].userId = users[1]._id
+  await professors[1].save();
+  professors[2].userId = users[2]._id
+  await professors[2].save();
+  professors[3].userId = users[3]._id
+  await professors[3].save();
+ 
+
+  const tutorsOxford = new Tutor({
+    userId: users[4]._id,
+  })
+
+  await tutorsOxford.save();
+
+
 
   for (newClass of classesOxford) {
 
@@ -49,11 +71,12 @@ db.once('open', async () => {
   }
 
   for (newStudent of studentsOxford){
-    newStudent.tutor = tutorsOxford[0]._id;
+    newStudent.school = schools[0]._id;
+    newStudent.tutor = tutorsOxford._id;
     await newStudent.save();
 
-    tutorsOxford[0].students.push(newStudent._id);
-    await tutorsOxford[0].save();
+    tutorsOxford.students.push(newStudent._id);
+    await tutorsOxford.save();
   }
 
 
@@ -71,23 +94,45 @@ db.once('open', async () => {
 
   }
 
-  const classAttendanceMath = new ClassAttendance({
+  const classAttendanceMath1 = new ClassAttendance({
     classId: classesOxford[0]._id,
     attendanceDate: 'Tuesday, February 28th, 2023',
-    studentAttendances: [{studentId: studentsOxford[0]._id, attended: true},
-                         {studentId: studentsOxford[1]._id, attended: false}
-                        ]
+    studentId: studentsOxford[0]._id, 
+    attended: true,
   });
-  await classAttendanceMath.save();
+  await classAttendanceMath1.save();
 
-  const classEvaluationMath = new ClassEvaluation({
+  const classAttendanceMath2 = new ClassAttendance({
+    classId: classesOxford[0]._id,
+    attendanceDate: 'Tuesday, February 28th, 2023',
+    studentId: studentsOxford[1]._id, 
+    attended: true,
+  });
+  await classAttendanceMath2.save();
+
+  const classEvaluationMath1 = new ClassEvaluation({
     classId: classesOxford[0]._id,
     evaluationDate: 'Tuesday, February 28th, 2023',
-    studentEvaluations: [{studentId: studentsOxford[0]._id, score: 9.5},
-                         {studentId: studentsOxford[1]._id, score: 8.0}
-                        ]
+    studentId: studentsOxford[0]._id, 
+    score: 9.5
   });
-  await classEvaluationMath.save();
+  await classEvaluationMath1.save();
+
+  const classEvaluationMath2 = new ClassEvaluation({
+    classId: classesOxford[0]._id,
+    evaluationDate: 'Tuesday, February 28th, 2023',
+    studentId: studentsOxford[1]._id, 
+    score: 8.0
+  });
+  await classEvaluationMath2.save();
+
+  const classAttendanceHistory = new ClassAttendance({
+    classId: classesOxford[1]._id,
+    attendanceDate: 'Tuesday, February 28th, 2023',
+    studentId: studentsOxford[0]._id,
+    attended: true
+  });
+  await classAttendanceHistory.save();
 
   console.log('all done!');
   process.exit(0);
