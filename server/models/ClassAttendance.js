@@ -10,17 +10,15 @@ const classAttendanceSchema = new Schema({
         type: String,
         required: true,
     },
-    studentAttendances: [{
-        studentId: {
-            type: Schema.Types.ObjectId, 
-            ref: "Student",
-            required:true
-        },
-        attended: {
-            type: Boolean,
-            required: true
-        }
-    }]
+    studentId: {
+        type: Schema.Types.ObjectId, 
+        ref: "Student",
+        required:true
+    },
+    attended: {
+        type: Boolean,
+        required: true
+    }
 })
 
 const ClassAttendance = model('ClassAttendance', classAttendanceSchema);

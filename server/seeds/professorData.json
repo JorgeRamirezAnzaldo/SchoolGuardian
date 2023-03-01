@@ -1,31 +1,15 @@
 [
 {
-    "name" : "John Smith",
-    "telephone": "55-44-67-87-90",
-    "email": "jhon.smith@oxford.com",
-    "password": "12345678",
     "principal": true
 },
     
 {
-    "name": "Jason Pearson",
-    "telephone": "55-44-67-87-90",
-    "email": "jason.pearson@boston.com",
-    "password": "12345678",
     "principal": true
 },
 {
-    "name": "Alex Johnson",
-    "telephone": "55-44-67-87-90",
-    "email": "alex.johnson@oxford.com",
-    "password": "12345678",
     "principal": false
 },
 {
-    "name": "Alexa Samuels",
-    "telephone": "55-44-67-87-90",
-    "email": "alexa.samuels@boston.com",
-    "password": "12345678",
     "principal": false
 }
 ]

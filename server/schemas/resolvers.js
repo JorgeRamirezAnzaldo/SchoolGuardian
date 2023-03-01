@@ -1,17 +1,24 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Tutor, Student, ClassAttendance, ClassEvaluation } = require('../models');
+const { Tutor, Student, ClassAttendance, ClassEvaluation, User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-      tutor: async (parent, { email }) => {
-        return Tutor.findOne({ email: email }).populate('students');
+      user: async (parent, { email }) => {
+        return User.findOne({ email });
       },
-      student: async (parent, { student_id }) => {
-        return Student.findOne({ _id: student_id }).populate([
+      tutor: async (parent, { _id }) => {
+        return Tutor.findOne({"userId" :  _id }).populate('students').populate({
+          path: 'userId',
+          model: 'User'
+      });
+      },
+      student: async (parent, { _id }) => {
+        return Student.findOne({ _id }).populate([
             {
                 path: 'classes',
-                model: 'Class'
+                model: 'Class',
+                populate: 'professor'
             }, 
             {
                 path: 'tutor',
@@ -27,26 +34,32 @@ const resolvers = {
             },
         ]);
       },
-      studentAttendance: async (parent, { student_id }) => {
+      studentAttendance: async (parent, { _id, class_id}) => {
         return ClassAttendance.find()
-        .where("studentAttendances.studentId").equals(`${student_id}`)
+        .where("studentId").equals(_id)
+        .where("classId").equals(class_id)
         .populate({
-            path: 'studentAttendances',
-            model: 'StudentAttendance'
-        })
+            path: 'classId',
+            model: 'Class'
+        }).populate({
+            path: 'studentId',
+            model: 'Student'
+        });
       },
-      studentEvaluation: async (parent, { student_id }) => {
+      studentEvaluation: async (parent, { _id, class_id }) => {
         return ClassEvaluation.find()
-        .where("studentEvaluations.studentId").equals(`${student_id}`)
+        .where("studentId").equals(_id)
+        .where("classId").equals(class_id)
         .populate({
-            path: 'studentEvaluations',
-            model: 'StudentEvaluation'
-        })
+            path: 'classId',
+            model: 'Class'
+        }).populate({
+          path: 'studentId',
+          model: 'Student'
+      });
       },
     },
 
-    Mutation: {
-    }
 }
 
 module.exports = resolvers;
