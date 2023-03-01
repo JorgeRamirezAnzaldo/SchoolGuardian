@@ -1,0 +1,27 @@
+[
+{
+    "name" : "Math",
+    "grade" : 1,
+    "hour" : "9:00 AM"
+},
+{
+    "name" : "History",
+    "grade" : 1,
+    "hour" : "10:00 AM"
+},
+{
+    "name" : "Literature",
+    "grade" : 1,
+    "hour" : "11:00 AM"
+},
+{
+    "name" : "Art",
+    "grade" : 1,
+    "hour" : "12:00 PM"
+},
+{
+    "name" : "Biology",
+    "grade" : 1,
+    "hour" : "1:00 PM"
+}
+]

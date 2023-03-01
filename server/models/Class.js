@@ -12,7 +12,6 @@ const classSchema = new Schema({
     professor:{
         type: Schema.Types.ObjectId, 
         ref: "Professor",
-        required: true
     },
     hour: {
         type: String,
