@@ -25,7 +25,11 @@ const studentSchema = new Schema({
     school: {
         type: Schema.Types.ObjectId,
         ref: "School",
-    }
+    },
+    alerts: [{
+        type: Schema.Types.ObjectId,
+        ref: "Alert"
+    }]
 })
 
 const Student = model('Student', studentSchema);
