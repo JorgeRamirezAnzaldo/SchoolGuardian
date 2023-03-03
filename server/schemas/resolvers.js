@@ -5,63 +5,84 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
       user: async (parent, { email }) => {
-        return User.findOne({ email });
+        //if (context.user) { //If user context is available
+          return User.findOne({ email });
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+      },
+      me: async (parent, args, context) => {
+        //if (context.user) { //If user context is available
+          return User.findOne({ _id: context.user._id }); //Return proper user using the context
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
       tutor: async (parent, { _id }) => {
-        return Tutor.findOne({"userId" :  _id }).populate('students').populate({
-          path: 'userId',
-          model: 'User'
-      });
+        //if (context.user) { //If user context is available
+          return Tutor.findOne({"userId" :  _id }).populate('students').populate({
+            path: 'userId',
+            model: 'User'
+          });
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
       student: async (parent, { _id }) => {
-        return Student.findOne({ _id }).populate([
-            {
-                path: 'classes',
-                model: 'Class',
-                populate: 'professor'
-            }, 
-            {
-                path: 'tutor',
-                model: 'Tutor'
-            },
-            {
-                path: 'school',
-                model: 'School'
-            },
-            {
-                path: 'alerts',
-                model: 'Alert',
-                populate:  {
-                  path: 'from',
-                  model: 'Professor',
-                  populate: 'userId'
-                }
-            },
-        ])
+        //if (context.user) { //If user context is available
+          return Student.findOne({ _id }).populate([
+              {
+                  path: 'classes',
+                  model: 'Class',
+                  populate: 'professor'
+              }, 
+              {
+                  path: 'tutor',
+                  model: 'Tutor'
+              },
+              {
+                  path: 'school',
+                  model: 'School'
+              },
+              {
+                  path: 'alerts',
+                  model: 'Alert',
+                  populate:  {
+                    path: 'from',
+                    model: 'Professor',
+                    populate: 'userId'
+                  }
+              },
+          ])
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
       studentAttendance: async (parent, { _id, class_id}) => {
-        return ClassAttendance.find()
-        .where("studentId").equals(_id)
-        .where("classId").equals(class_id)
-        .populate({
-            path: 'classId',
-            model: 'Class'
-        }).populate({
-            path: 'studentId',
-            model: 'Student'
-        });
+        //if (context.user) { //If user context is available
+          return ClassAttendance.find()
+          .where("studentId").equals(_id)
+          .where("classId").equals(class_id)
+          .populate({
+              path: 'classId',
+              model: 'Class'
+          }).populate({
+              path: 'studentId',
+              model: 'Student'
+          });
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
       studentEvaluation: async (parent, { _id, class_id }) => {
-        return ClassEvaluation.find()
-        .where("studentId").equals(_id)
-        .where("classId").equals(class_id)
-        .populate({
-            path: 'classId',
-            model: 'Class'
-        }).populate({
-          path: 'studentId',
-          model: 'Student'
-      });
+        //if (context.user) { //If user context is available
+          return ClassEvaluation.find()
+          .where("studentId").equals(_id)
+          .where("classId").equals(class_id)
+          .populate({
+              path: 'classId',
+              model: 'Class'
+          }).populate({
+            path: 'studentId',
+            model: 'Student'
+          });
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
     },
 
@@ -86,8 +107,11 @@ const resolvers = {
       },
 
       signAlert: async (parent, { _id, sign }) => {
-        const alert = await Alert.findOneAndUpdate( { _id: _id }, {sign: sign}, {new: true});
-        return alert;
+        //if (context.user) { //If user context is available
+          const alert = await Alert.findOneAndUpdate( { _id: _id }, {sign: sign}, {new: true});
+          return alert;
+        //}
+        //throw new AuthenticationError('You need to be logged in!'); //Return Authentication Error if there is no context available
       }
 
     }
