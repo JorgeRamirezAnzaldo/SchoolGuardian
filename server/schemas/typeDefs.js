@@ -86,7 +86,7 @@ const typeDefs = gql`
     student (_id: ID!): Student
     studentAttendance (_id: ID!, class_id: ID!): [ClassAttendance]
     studentEvaluation (_id: ID!, class_id: ID!): [ClassEvaluation]
-
+    me: User
 
     # students: [Student]
     # classes: [Class]
@@ -98,7 +98,6 @@ const typeDefs = gql`
     # classEvaluation(classId: ID!, evaluationDate: String!): ClassEvaluation
     # professor (email: String!): Professor
     # student (registration: String!): Student
-    # me: User
   }
 
   type Mutation{
