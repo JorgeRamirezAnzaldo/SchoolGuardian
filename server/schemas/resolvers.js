@@ -16,9 +16,13 @@ const resolvers = {
         //}
         //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      tutor: async (parent, { _id }) => {
+      tutor: async (parent, { userId }) => {
         //if (context.user) { //If user context is available
-          return Tutor.findOne({"userId" :  _id }).populate('students').populate({
+          return Tutor.findOne({userId :  userId }).populate({
+            path: 'students',
+            model: 'Student',
+            populate: 'school'
+        }, ).populate({
             path: 'userId',
             model: 'User'
           });

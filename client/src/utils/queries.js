@@ -2,6 +2,7 @@
 import { gql } from '@apollo/client';
 
 //Export QUERY_ME
+
 export const QUERY_ME = gql`
   query me {
     me {
@@ -15,21 +16,23 @@ export const QUERY_ME = gql`
   }`;
 
 export const QUERY_TUTOR = gql`
-  query Tutor($id: ID!) {
-    tutor(_id: $id) {
-        userId: {
-            name
-            telephone
-            email
+  query Tutor($userId: ID!) {
+    tutor(userId: $userId) {
+      _id
+      userId {
+        name
+        telephone
+        email
+      }
+      students {
+        name
+        grade
+        registration
+        school{
+          name
         }
-        students:{
-            name
-            grade
-            registration
-            school{
-                name
-            }
-       }
+      }
+        
     }
   }`;
 
@@ -40,26 +43,26 @@ export const QUERY_STUDENT = gql`
         name
         grade
         registration
-        classes:{
+        classes {
             classId
             name
             grade
-            professor:{
+            professor {
                 name
             }
             hour
         }
-        tutor: {
+        tutor {
             userId
         }
-        school: {
+        school {
             name
         }
-        alerts: {
+        alerts {
             subject
             message
-            from:{
-                professor:{
+            from{
+                professor {
                     name
                 }
             }
@@ -71,14 +74,14 @@ export const QUERY_STUDENT = gql`
 export const QUERY_STUDATT = gql`
   query StudentAttendance($id: ID!, $classId: ID!) {
     studentAttendance(_id: $id, class_id: $classId) {
-        classId:{
+        classId {
             name
             grade
             hour
         }
         attendanceDate
         attended
-        studentId:{
+        studentId {
             name
             grade
             registration
@@ -89,14 +92,14 @@ export const QUERY_STUDATT = gql`
 export const QUERY_STUDEVAL = gql`
   query StudentEvaluation($id: ID!, $classId: ID!) {
     studentEvaluation(_id: $id, class_id: $classId) {
-        classId:{
+        classId {
             name
             grade
             hour
         }
         evaluationDate
         score
-        studentId:{
+        studentId {
             name
             grade
             registration

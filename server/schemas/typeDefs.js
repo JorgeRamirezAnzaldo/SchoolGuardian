@@ -82,7 +82,7 @@ const typeDefs = gql`
 
   type Query {
     user (email: String!): User
-    tutor (_id: ID!): Tutor
+    tutor (userId: ID!): Tutor
     student (_id: ID!): Student
     studentAttendance (_id: ID!, class_id: ID!): [ClassAttendance]
     studentEvaluation (_id: ID!, class_id: ID!): [ClassEvaluation]
