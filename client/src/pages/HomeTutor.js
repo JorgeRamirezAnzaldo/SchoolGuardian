@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_TUTOR} from '../utils/queries';
-const HomeTutor = () => {
-    const { loading, data } = useQuery(QUERY_TUTOR,{ variables:{ userId: "63ff9073f9453c1340aef377"}});
+const HomeTutor = ({userId}) => {
+    const { loading, data } = useQuery(QUERY_TUTOR,{ variables:{ userId: userId}});
     console.log(data);
     const tutor = data?.tutor || {};
     console.log(tutor);

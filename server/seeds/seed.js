@@ -1,4 +1,5 @@
 const db = require('../config/connection');
+const bcrypt = require('bcrypt');
 const { School, Class, Professor, Student, Tutor, ClassAttendance, ClassEvaluation, User, Alert } = require('../models');
 
 
@@ -11,7 +12,22 @@ const userData = require('./userData.json');
 const alertData = require('./alertData.json');
 //const tutorDataOxford = require('./tutorData.json');
 
+
+
+
 db.once('open', async () => {
+
+
+  //const userArray = JSON.parse(userData);
+
+  const usersWithHashedPasswordsPromiseArray = userData.map( async (user) => {
+    let hashedPassword = await bcrypt.hash(user.password, 10);
+    user.password = hashedPassword;
+    return user;
+  })
+
+  const usersWithHashedPasswords = await Promise.all(usersWithHashedPasswordsPromiseArray)
+
 
   await School.deleteMany({});
   await User.deleteMany({});
@@ -24,7 +40,7 @@ db.once('open', async () => {
   await Alert.deleteMany({});
 
   const schools = await School.insertMany(schoolData);
-  const users = await User.insertMany(userData);
+  const users = await User.insertMany(usersWithHashedPasswords);
   const classesOxford = await Class.insertMany(classDataOxford);
   const classesBoston = await Class.insertMany(classDataBoston);
   const professors = await Professor.insertMany(professorData);
