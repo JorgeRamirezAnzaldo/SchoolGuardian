@@ -4,20 +4,20 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-      user: async (parent, { email }) => {
-        //if (context.user) { //If user context is available
+      user: async (parent, { email }, context) => {
+        if (context.user) { //If user context is available
           return User.findOne({ email });
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
       me: async (parent, args, context) => {
-        //if (context.user) { //If user context is available
+        if (context.user) { //If user context is available
           return User.findOne({ _id: context.user._id }); //Return proper user using the context
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      tutor: async (parent, { userId }) => {
-        //if (context.user) { //If user context is available
+      tutor: async (parent, { userId }, context) => {
+        if (context.user) { //If user context is available
           return Tutor.findOne({userId :  userId }).populate({
             path: 'students',
             model: 'Student',
@@ -26,11 +26,11 @@ const resolvers = {
             path: 'userId',
             model: 'User'
           });
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      student: async (parent, { _id }) => {
-        //if (context.user) { //If user context is available
+      student: async (parent, { _id }, context) => {
+        if (context.user) { //If user context is available
           return Student.findOne({ _id }).populate([
               {
                   path: 'classes',
@@ -55,11 +55,11 @@ const resolvers = {
                   }
               },
           ])
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      studentAttendance: async (parent, { _id, class_id}) => {
-        //if (context.user) { //If user context is available
+      studentAttendance: async (parent, { _id, class_id}, context) => {
+        if (context.user) { //If user context is available
           return ClassAttendance.find()
           .where("studentId").equals(_id)
           .where("classId").equals(class_id)
@@ -70,11 +70,11 @@ const resolvers = {
               path: 'studentId',
               model: 'Student'
           });
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      studentEvaluation: async (parent, { _id, class_id }) => {
-        //if (context.user) { //If user context is available
+      studentEvaluation: async (parent, { _id, class_id }, context) => {
+        if (context.user) { //If user context is available
           return ClassEvaluation.find()
           .where("studentId").equals(_id)
           .where("classId").equals(class_id)
@@ -85,8 +85,8 @@ const resolvers = {
             path: 'studentId',
             model: 'Student'
           });
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
     },
 
@@ -110,12 +110,12 @@ const resolvers = {
         return { token, user }; //Return token and user
       },
 
-      signAlert: async (parent, { _id, sign }) => {
-        //if (context.user) { //If user context is available
+      signAlert: async (parent, { _id, sign }, context) => {
+        if (context.user) { //If user context is available
           const alert = await Alert.findOneAndUpdate( { _id: _id }, {sign: sign}, {new: true});
           return alert;
-        //}
-        //throw new AuthenticationError('You need to be logged in!'); //Return Authentication Error if there is no context available
+        }
+        throw new AuthenticationError('You need to be logged in!'); //Return Authentication Error if there is no context available
       }
 
     }
