@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Header = () => {
+const Header = ({username}) => {
   
   return (
     <>
@@ -11,7 +11,7 @@ const Header = () => {
                     <div className=" column">
                         <h1 className="ui left aligned image header" style={{color: 'white'}}>
                             <div className="ui left aligned content ">
-                            Leonardo N
+                                {username}
                             <i className="big users icon size" style={{color: 'rgb(94,3,222)',
                             color: 'radial-gradient(circle, rgba(94,3,222,1) 0%, rgba(8,7,7,1) 100%)'}}></i>
                             </div>
