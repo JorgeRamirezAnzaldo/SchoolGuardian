@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from 'react-router-dom';
+import { Modal, Button} from 'semantic-ui-react';
 
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
@@ -9,6 +10,7 @@ const Login = () => {
 
     const [userFormData, setUserFormData] = useState({email: "", password: ""});
     const [login, {error, data}] = useMutation(LOGIN_USER);
+    const [open, setOpen] = useState(false);
 
     const handleInputChange = (event) => {
         const { name, value} = event.target;
@@ -25,7 +27,8 @@ const Login = () => {
             
         } catch (err) {
             console.error(err);
-            alert(err);
+            setOpen(true);
+            //alert(err);
         }
         setUserFormData({
             email: '',
@@ -46,9 +49,31 @@ const Login = () => {
             marginTop: "1em",
             fontFamily:"Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
         },
+        button: {
+            background:"rgb(94,3,222)",
+            background:"radial-gradient(circle, rgba(94,3,222,1) 0%, rgba(8,7,7,1) 100%)",
+            color: "white"
+        }
     }
   return (
-    <>  {Auth.loggedIn() ?
+        
+    <>  
+        <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+        >
+            <Modal.Header>Error at Login</Modal.Header>
+            <Modal.Content>
+                <p>Wrong credentials! Check your user data</p>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button style={styles.button} onClick={() => setOpen(false)}>
+                Try again
+                </Button>
+            </Modal.Actions>
+        </Modal>
+        {Auth.loggedIn() ?
         
         (<Navigate to="/Home"/>):(
         <>
