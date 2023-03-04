@@ -34,7 +34,7 @@ const HomeTutor = ({userId}) => {
                     ) :
                     (<div className="ui centered three stackable cards">{tutor.students.map((student) =>(
                         <div key={student.registration} className="ui centered card" style={styles.background}>
-                            <Link to={`/students/${student._id}`}>
+                            <Link to={`/student/${student._id}`}>
                                 <div className="content" >
                                     <i className="massive circular user icon"style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>
