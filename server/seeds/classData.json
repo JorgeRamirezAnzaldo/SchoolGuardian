@@ -1,27 +1,37 @@
 [
 {
-    "name" : "Math",
+    "name" : "Grammar 1",
+    "grade" : 1,
+    "hour" : "8:00 PM"
+},
+{
+    "name" : "Math 1",
     "grade" : 1,
     "hour" : "9:00 AM"
 },
 {
-    "name" : "History",
+    "name" : "History 1",
     "grade" : 1,
     "hour" : "10:00 AM"
 },
 {
-    "name" : "Literature",
+    "name" : "Literature 1",
     "grade" : 1,
     "hour" : "11:00 AM"
 },
 {
-    "name" : "Art",
+    "name" : "Art 1",
     "grade" : 1,
     "hour" : "12:00 PM"
 },
 {
-    "name" : "Biology",
+    "name" : "Biology 1",
     "grade" : 1,
     "hour" : "1:00 PM"
+},
+{
+    "name" : "Social Studies 1",
+    "grade" : 1,
+    "hour" : "2:00 PM"
 }
 ]
