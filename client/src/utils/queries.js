@@ -25,6 +25,7 @@ export const QUERY_TUTOR = gql`
         email
       }
       students {
+        _id
         name
         grade
         registration
@@ -36,7 +37,7 @@ export const QUERY_TUTOR = gql`
     }
   }`;
 
-export const QUERY_STUDENT = gql`
+/*export const QUERY_STUDENT = gql`
   query Student($id: ID!) {
     student(_id: $id) {
         _id
@@ -69,9 +70,46 @@ export const QUERY_STUDENT = gql`
             sign
         }
     }
+  }`;*/
+  export const QUERY_STUDENT = gql`
+  query Student($_id: ID!) {
+    student(_id: $_id) {
+        _id
+        name
+        grade
+        registration
+        classes {
+          _id
+          name
+          grade
+          professor {
+            principal 
+          }
+          hour
+      }
+      tutor {
+        _id
+        userId{
+          name
+        }
+      }
+      school {
+        name
+      }
+      alerts {
+        subject
+        message
+        from{
+          principal
+          userId{
+            name
+          }
+        }
+        sign
+      }
+    }
   }`;
-
-export const QUERY_STUDATT = gql`
+/*export const QUERY_STUDATT = gql`
   query StudentAttendance($id: ID!, $classId: ID!) {
     studentAttendance(_id: $id, class_id: $classId) {
         classId {
@@ -87,7 +125,25 @@ export const QUERY_STUDATT = gql`
             registration
         }
     }
-  }`;
+  }`;*/
+  export const QUERY_STUDATT = gql`
+  query StudentAttendance($id: ID!) {
+    studentAttendance(_id: $id) {
+        classId {
+            _id
+            name
+            grade
+            hour
+        }
+        attendanceDate
+        attended
+        studentId {
+            name
+            grade
+            registration
+        }
+    }
+  }`
 
 export const QUERY_STUDEVAL = gql`
   query StudentEvaluation($id: ID!, $classId: ID!) {

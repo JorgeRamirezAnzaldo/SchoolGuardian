@@ -31,20 +31,23 @@ const resolvers = {
       },
       student: async (parent, { _id }, context) => {
         if (context.user) { //If user context is available
-          return Student.findOne({ _id }).populate([
+          const student=await Student.findOne({ _id }).populate(
               {
                   path: 'classes',
                   model: 'Class',
                   populate: 'professor'
-              }, 
+              }) 
+              .populate( 
               {
                   path: 'tutor',
-                  model: 'Tutor'
-              },
+                  model: 'Tutor',
+                  populate: 'userId'
+
+              }).populate(
               {
                   path: 'school',
                   model: 'School'
-              },
+              }).populate( 
               {
                   path: 'alerts',
                   model: 'Alert',
@@ -53,16 +56,16 @@ const resolvers = {
                     model: 'Professor',
                     populate: 'userId'
                   }
-              },
-          ])
+              })
+              return student;
         }
         throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      studentAttendance: async (parent, { _id, class_id}, context) => {
+      studentAttendance: async (parent, { _id}, context) => {
         if (context.user) { //If user context is available
           return ClassAttendance.find()
           .where("studentId").equals(_id)
-          .where("classId").equals(class_id)
+          //.where("classId").equals(class_id)
           .populate({
               path: 'classId',
               model: 'Class'

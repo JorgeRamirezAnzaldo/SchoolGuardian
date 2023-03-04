@@ -1,6 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const HomeTutor = () => {
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_STUDENT} from '../utils/queries';
+
+
+const DashboardTutor = () => {
+    const {id} = useParams();
+    const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
+    const classes=[];
+
+    if(data){
+        for(let i=0; i<data.student.classes.length; i++){
+            classes.push(data.student.classes[i]._id);
+
+        }
+        console.log(classes);
+    }
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -23,7 +39,7 @@ const HomeTutor = () => {
                 <div className="column">
                     <div className="ui centered three stackable cards">
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/grades`}>
+                            <Link to={`/grades/${id}`}>
                                 <div className="content" >
                                     <i className="massive circular tasks icon "style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>
@@ -36,7 +52,7 @@ const HomeTutor = () => {
                             </Link>
                         </div>
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/attendance`}>
+                            <Link to={`/attendance/${id}`} state={{classA:classes}}>
                                 <div className="content" >
                                     <i className="massive circular calendar check outline icon"style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>
@@ -49,7 +65,7 @@ const HomeTutor = () => {
                             </Link>
                         </div>
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/alerts`}>
+                            <Link to={`/alerts/${id}`}>
                                 <div className="content" >
                                     <i className="massive circular bullhorn icon"style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>
@@ -68,7 +84,7 @@ const HomeTutor = () => {
     </div>
   );
 };
-export default HomeTutor;
+export default DashboardTutor;
 
 
 
