@@ -25,6 +25,7 @@ const Login = () => {
             
         } catch (err) {
             console.error(err);
+            alert(err);
         }
         setUserFormData({
             email: '',
@@ -76,8 +77,6 @@ const Login = () => {
                     >
                     Submit
                     </button>
-                
-                
             </form>
             </div>
         </div>

@@ -29,6 +29,7 @@ db.once('open', async () => {
   const usersWithHashedPasswords = await Promise.all(usersWithHashedPasswordsPromiseArray)
 
 
+  //Delete all documents to initialize DB
   await School.deleteMany({});
   await User.deleteMany({});
   await Class.deleteMany({});
@@ -38,6 +39,7 @@ db.once('open', async () => {
   await ClassAttendance.deleteMany({});
   await ClassEvaluation.deleteMany({});
   await Alert.deleteMany({});
+
 
   const schools = await School.insertMany(schoolData);
   const users = await User.insertMany(usersWithHashedPasswords);
@@ -107,45 +109,134 @@ db.once('open', async () => {
 
   }
 
-  const classAttendanceMath1 = new ClassAttendance({
+  /*const classAttendanceMath1 = new ClassAttendance({
     classId: classesOxford[0]._id,
     attendanceDate: 'Tuesday, February 28th, 2023',
     studentId: studentsOxford[0]._id, 
     attended: true,
   });
-  await classAttendanceMath1.save();
+  await classAttendanceMath1.save();*/
 
-  const classAttendanceMath2 = new ClassAttendance({
+  //inserts attendance for student oxford [0] week 6-10 March
+  for (let x = 0; x <= 6; x++) {
+
+    let attendanceDate = new Date('March 6, 2023');
+
+    for (let i = 0; i <= 4; i++) {
+
+      const randomBoolean = Math.random() >= 0.15;
+
+      const classAttendance = new ClassAttendance({
+        classId: classesOxford[x]._id,
+        attendanceDate: attendanceDate.toDateString(),
+        studentId: studentsOxford[0]._id, 
+        attended: randomBoolean,
+      });
+      await classAttendance.save();
+      attendanceDate.setDate(attendanceDate.getDate() + 1);
+    }
+
+  }
+
+  /*const classAttendanceMath2 = new ClassAttendance({
     classId: classesOxford[0]._id,
     attendanceDate: 'Tuesday, February 28th, 2023',
     studentId: studentsOxford[1]._id, 
     attended: true,
   });
-  await classAttendanceMath2.save();
+  await classAttendanceMath2.save();*/
 
-  const classEvaluationMath1 = new ClassEvaluation({
+  //inserts attendance for student oxford [1] week 6-10 March
+  for (let x = 0; x <= 6; x++) {
+
+    let attendanceDate = new Date('March 6, 2023');
+
+    for (let i = 0; i <= 4; i++) {
+
+      const randomBoolean = Math.random() >= 0.2;
+
+      const classAttendance = new ClassAttendance({
+        classId: classesOxford[x]._id,
+        attendanceDate: attendanceDate.toDateString(),
+        studentId: studentsOxford[1]._id, 
+        attended: randomBoolean,
+      });
+
+      await classAttendance.save();
+      attendanceDate.setDate(attendanceDate.getDate() + 1);
+
+    }
+
+  }
+
+  /*const classEvaluationMath1 = new ClassEvaluation({
     classId: classesOxford[0]._id,
     evaluationDate: 'Tuesday, February 28th, 2023',
     studentId: studentsOxford[0]._id, 
     score: 9.5
   });
-  await classEvaluationMath1.save();
+  await classEvaluationMath1.save();*/
 
-  const classEvaluationMath2 = new ClassEvaluation({
+  //inserts evaluations for student oxford [0], 5 evaluations
+  let evaluationDate = new Date('November 1, 2022');
+
+  for (let x = 0; x <= 4; x++) { // loops dates Nov2022-Mar2023
+
+    for (let i = 0; i <= 6; i++) { // loops classes
+
+      let randomGrade = (Math.random() * 2) + 8;
+      randomGrade = randomGrade.toFixed(1);
+
+      const classEvaluation = new ClassEvaluation({
+        classId: classesOxford[i]._id,
+        evaluationDate: evaluationDate.toDateString(),
+        studentId: studentsOxford[0]._id, 
+        score: randomGrade
+      });
+
+      await classEvaluation.save();
+      evaluationDate.setDate(evaluationDate.getDate() + 1);
+
+    }
+
+    evaluationDate.setDate(1);
+    evaluationDate.setMonth(evaluationDate.getMonth() + 1);
+
+  }
+
+  /*const classEvaluationMath2 = new ClassEvaluation({
     classId: classesOxford[0]._id,
     evaluationDate: 'Tuesday, February 28th, 2023',
     studentId: studentsOxford[1]._id, 
     score: 8.0
   });
-  await classEvaluationMath2.save();
+  await classEvaluationMath2.save();*/
 
-  const classAttendanceHistory = new ClassAttendance({
-    classId: classesOxford[1]._id,
-    attendanceDate: 'Tuesday, February 28th, 2023',
-    studentId: studentsOxford[0]._id,
-    attended: true
-  });
-  await classAttendanceHistory.save();
+  evaluationDate = new Date('November 1, 2022');
+  
+  for (let x = 0; x <= 4; x++) { // loops dates Nov2022-Mar2023
+
+    for (let i = 0; i <= 6; i++) { // loops classes
+
+      let randomGrade = (Math.random() * 4) + 6.0;
+      randomGrade = randomGrade.toFixed(1);
+
+      const classEvaluation = new ClassEvaluation({
+        classId: classesOxford[i]._id,
+        evaluationDate: evaluationDate.toDateString(),
+        studentId: studentsOxford[1]._id, 
+        score: randomGrade
+      });
+
+      await classEvaluation.save();
+      evaluationDate.setDate(evaluationDate.getDate() + 1);
+
+    }
+
+    evaluationDate.setDate(1);
+    evaluationDate.setMonth(evaluationDate.getMonth() + 1);
+
+  }
 
   for (alert of alerts){
     alert.from = professors[0]._id;
