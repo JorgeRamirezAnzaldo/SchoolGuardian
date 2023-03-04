@@ -1,7 +1,53 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
+import { useParams,useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_STUDATT} from '../utils/queries';
+import { QUERY_STUDENT} from '../utils/queries';
 
-const studentAttendance = ({studentId}) => {
+const   StudentAttendance = () => {
+    const {id} = useParams();
+    console.log(id);
+            
+        //const { loading, data } = useQuery(QUERY_STUDATT,{ variables:{ _id: id, classId: data.student.classes[i]._id}});
+        const location =useLocation();
+        const {classA} =location.state;
+        console.log(classA);
+        const { loading, data } = useQuery(QUERY_STUDATT,{ variables:{ id: id}});
+        console.log(data);
+        /*let fullData={
+            classText:'',
+            attendances: [],
+        };*/
+        let fullData = {};
+        const finalData=[];
+    if (!loading){
+        for(let i = 0; i < classA.length; i++){
+            //fullData.attendances=[];
+            fullData={};
+            const filtered = data.studentAttendance.filter((studA) =>{
+                if(studA.classId._id===classA[i]){
+                    return true;
+
+                }return false;
+            })
+            //console.log(filtered);
+            fullData.classText = filtered[0].classId.name;
+            //console.log(fullData);
+
+            fullData.attendances=filtered;
+            //console.log(fullData);
+
+            finalData.push(fullData);
+
+        }
+       console.log(finalData);
+
+    }
+
+    
+    
+
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -35,15 +81,22 @@ const studentAttendance = ({studentId}) => {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {finalData.map((item,index) => (
                                     <tr>
-                                        <td>ClassName</td>
-                                        <td className='negative'><Icon color='red' size='large' name='x' /></td>
-                                        <td className='positive'><Icon color='green' size='large' name='checkmark' /></td>
-                                        <td className='positive'><Icon color='green' size='large' name='checkmark' /></td>
-                                        <td className='positive'><Icon color='green' size='large' name='checkmark' /></td>
-                                        <td className='positive'><Icon color='green' size='large' name='checkmark' /></td>
+                                        <td>{item.classText}</td>
+                                        {item.attendances.map((subitem,index2) => (
+                                            <>
+                                             {subitem.attended ? (
+                                                <td className='positive'><Icon color='green' size='large' name='checkmark' /></td>
+                                             ):(
+                                                <td className='negative'><Icon color='red' size='large' name='x' /></td>
+                                             )}
+                                            </>
+                                        ))}                                               
                                         <td>N</td>
                                     </tr>
+                                    ))}
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -53,4 +106,4 @@ const studentAttendance = ({studentId}) => {
         </div>
     );
 }
-export default studentAttendance;
+export default StudentAttendance;
