@@ -85,7 +85,7 @@ const typeDefs = gql`
     tutor (userId: ID!): Tutor
     student (_id: ID!): Student
     studentAttendance (_id: ID!): [ClassAttendance]
-    studentEvaluation (_id: ID!, class_id: ID!): [ClassEvaluation]
+    studentEvaluation (_id: ID!): [ClassEvaluation]
     me: User
 
     # students: [Student]

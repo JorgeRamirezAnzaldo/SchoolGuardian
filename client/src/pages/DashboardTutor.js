@@ -39,7 +39,7 @@ const DashboardTutor = () => {
                 <div className="column">
                     <div className="ui centered three stackable cards">
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/grades/${id}`}>
+                            <Link to={`/grades/${id}`} state={{classA:classes}}>
                                 <div className="content" >
                                     <i className="massive circular tasks icon "style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>

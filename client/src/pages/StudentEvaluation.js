@@ -1,54 +1,50 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useParams,useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { QUERY_STUDATT} from '../utils/queries';
+import { QUERY_STUDEVAL} from '../utils/queries';
 
-const   StudentAttendance = () => {
-    const {id} = useParams();
-            
+const  StudentEvaluation = () => {
+    const {id} = useParams();           
     const location =useLocation();
     const {classA} =location.state;
+    const { loading, data } = useQuery(QUERY_STUDEVAL,{ variables:{ id: id}});
+    /*let fullData={
+        classText:'',
+        evaluations: [],
+        average: ''
+    };*/
+    let fullData = {};
+    const finalData=[];
+    let studentName = "";
 
-    const { loading, data } = useQuery(QUERY_STUDATT,{ variables:{ id: id}});
-
-        /*let fullData={
-            classText:'',
-            attendances: [],
-            absences: ''
-        };*/
-        let fullData = {};
-        const finalData=[];
-        let studentName = "";
     if (!loading){
         for(let i = 0; i < classA.length; i++){
+
             fullData={};
-            const filtered = data.studentAttendance.filter((studA) =>{
-                if(studA.classId._id===classA[i]){
+            const filtered = data.studentEvaluation.filter((studE) =>{
+                if(studE.classId._id===classA[i]){
                     return true;
 
                 }return false;
             })
-            const sum = filtered.reduce((a, b) => {
-                if (b.attended == false){
-                    a++;
-                }
-                return a;
-            }, 0);
-            fullData.absences = sum;
+            const sum = filtered.reduce((a, b) => a + b.score, 0);
+            const average = sum/filtered.length;
+            const avgstring = average.toFixed(2);
+            fullData.average = avgstring;
             fullData.classText = filtered[0].classId.name;
-
-            fullData.attendances=filtered;
+            
+            fullData.evaluations=filtered;
+            //console.log(fullData);
 
             finalData.push(fullData);
 
         }
        console.log(finalData);
-       studentName = finalData[0].attendances[0].studentId.name;
-
+       studentName = finalData[0].evaluations[0].studentId.name;
+       
     }
 
-    
     
 
     const styles ={
@@ -80,23 +76,23 @@ const   StudentAttendance = () => {
                                         <th className="center aligned" style={styles.background}></th>
                                         <th className="center aligned" style={styles.background}></th>
                                         <th className="center aligned" style={styles.background}></th>
-                                        <th className="center aligned" style={styles.background}>Total Absences</th>
+                                        <th className="center aligned" style={styles.background}>Average score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {finalData.map((item,index) => (
                                     <tr>
                                         <td className="center aligned">{item.classText}</td>
-                                        {item.attendances.map((subitem,index2) => (
+                                        {item.evaluations.map((subitem,index2) => (
                                             <>
-                                             {subitem.attended ? (
-                                                <td className='positive center aligned'><Icon color='green' size='large' name='checkmark' /></td>
+                                             {subitem.score >= 6 ? (
+                                                <td className='center aligned positive'>{subitem.score}</td>
                                              ):(
-                                                <td className='negative center aligned'><Icon color='red' size='large' name='x' /></td>
+                                                <td className='center aligned negative'>{subitem.score}</td>
                                              )}
                                             </>
                                         ))}                                               
-                                        <td className="center aligned">{item.absences}</td>
+                                        <td className="center aligned">{item.average}</td>
                                     </tr>
                                     ))}
                                   
@@ -109,4 +105,4 @@ const   StudentAttendance = () => {
         </div>
     );
 }
-export default StudentAttendance;
+export default StudentEvaluation;

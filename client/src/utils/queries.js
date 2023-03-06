@@ -109,23 +109,7 @@ export const QUERY_TUTOR = gql`
       }
     }
   }`;
-/*export const QUERY_STUDATT = gql`
-  query StudentAttendance($id: ID!, $classId: ID!) {
-    studentAttendance(_id: $id, class_id: $classId) {
-        classId {
-            name
-            grade
-            hour
-        }
-        attendanceDate
-        attended
-        studentId {
-            name
-            grade
-            registration
-        }
-    }
-  }`;*/
+
   export const QUERY_STUDATT = gql`
   query StudentAttendance($id: ID!) {
     studentAttendance(_id: $id) {
@@ -146,9 +130,10 @@ export const QUERY_TUTOR = gql`
   }`
 
 export const QUERY_STUDEVAL = gql`
-  query StudentEvaluation($id: ID!, $classId: ID!) {
-    studentEvaluation(_id: $id, class_id: $classId) {
+  query StudentEvaluation($id: ID!) {
+    studentEvaluation(_id: $id) {
         classId {
+            _id
             name
             grade
             hour
