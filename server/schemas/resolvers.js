@@ -76,11 +76,11 @@ const resolvers = {
         }
         throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      studentEvaluation: async (parent, { _id, class_id }, context) => {
+      studentEvaluation: async (parent, { _id }, context) => {
         if (context.user) { //If user context is available
           return ClassEvaluation.find()
           .where("studentId").equals(_id)
-          .where("classId").equals(class_id)
+          //.where("classId").equals(class_id)
           .populate({
               path: 'classId',
               model: 'Class'
