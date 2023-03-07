@@ -1,10 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-//import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { QUERY_PROFESSOR } from '../utils/queries';
 
-
-const DashboardPrincipal = () => {
+const DashboardPrincipal = ({userId}) => {
+    console.log(userId);
+    const { loading, data } = useQuery(QUERY_PROFESSOR,{ variables:{ userId: userId}});
+    console.log(data);
+    const professor = data?.professor || {};
+    console.log(professor);
+    let schoolId;
+    let professorId;
+    if (!loading){
+        professorId = professor._id;
+        schoolId = professor.schoolId._id;
+        console.log(schoolId);
+    }
    
     const styles ={
         background:{
@@ -28,7 +40,13 @@ const DashboardPrincipal = () => {
                 <div className="column">
                     <div className="ui centered three stackable cards">
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/createAlert`}>
+                        {loading ? (
+                            <>
+                            <div >Loading...</div>
+                            </>
+                            ) :
+                            (
+                            <Link to={`/createAlert`} state={{schoolId: schoolId, professorId: professorId}}>
                                 <div className="content" >
                                     <i className="massive circular bullhorn icon"style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>
@@ -39,6 +57,7 @@ const DashboardPrincipal = () => {
                                     </h1>
                                 </div>
                             </Link>
+                            )}
                         </div>
                     </div>
                 </div>

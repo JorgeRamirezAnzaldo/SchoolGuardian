@@ -90,9 +90,9 @@ const   StudentAttendance = () => {
                                         {item.attendances.map((subitem,index2) => (
                                             <>
                                              {subitem.attended ? (
-                                                <td className='positive center aligned'><Icon color='green' size='large' name='checkmark' /></td>
+                                                <td className='positive center aligned' data-tooltip={subitem.attendanceDate}><Icon color='green' size='large' name='checkmark' /></td>
                                              ):(
-                                                <td className='negative center aligned'><Icon color='red' size='large' name='x' /></td>
+                                                <td className='negative center aligned' data-tooltip={subitem.attendanceDate}><Icon color='red' size='large' name='x' /></td>
                                              )}
                                             </>
                                         ))}                                               

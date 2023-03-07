@@ -12,6 +12,7 @@ export const QUERY_ME = gql`
         password
         name
         telephone
+        usertype
     }
   }`;
 
@@ -37,40 +38,7 @@ export const QUERY_TUTOR = gql`
     }
   }`;
 
-/*export const QUERY_STUDENT = gql`
-  query Student($id: ID!) {
-    student(_id: $id) {
-        _id
-        name
-        grade
-        registration
-        classes {
-            classId
-            name
-            grade
-            professor {
-                name
-            }
-            hour
-        }
-        tutor {
-            userId
-        }
-        school {
-            name
-        }
-        alerts {
-            subject
-            message
-            from{
-                professor {
-                    name
-                }
-            }
-            sign
-        }
-    }
-  }`;*/
+
   export const QUERY_STUDENT = gql`
   query Student($_id: ID!) {
     student(_id: $_id) {
@@ -86,27 +54,28 @@ export const QUERY_TUTOR = gql`
             principal 
           }
           hour
-      }
-      tutor {
-        _id
-        userId{
-          name
         }
-      }
-      school {
-        name
-      }
-      alerts {
-        subject
-        message
-        from{
-          principal
+        tutor {
+          _id
           userId{
             name
           }
         }
-        sign
-      }
+        school {
+          name
+        }
+        alerts {
+          _id
+          subject
+          message
+          from{
+            principal
+            userId{
+              name
+            }
+          }
+          sign
+        }
     }
   }`;
 
@@ -127,11 +96,12 @@ export const QUERY_TUTOR = gql`
             registration
         }
     }
-  }`
+  }`;
 
 export const QUERY_STUDEVAL = gql`
   query StudentEvaluation($id: ID!) {
     studentEvaluation(_id: $id) {
+        _id
         classId {
             _id
             name
@@ -148,19 +118,26 @@ export const QUERY_STUDEVAL = gql`
     }
   }`;
 
-  export const QUERY_PROFESSOR = gql`
-    query Professor($userId: ID!) {
-      professor(userId: $userId) {
+export const QUERY_PROFESSOR = gql`
+  query Professor($userId: ID!) {
+    professor(userId: $userId) {
+      _id
+      principal
+      schoolId {
         _id
-        principal
-        schoolId {
-          _id
-          name
-        }
-        userId {
-          name
-          usertype
-        }
+        name
+      }
+      userId {
+        name
+        usertype
       }
     }
-  `;
+  }
+`;
+
+export const QUERY_STUDENTS = gql`
+query Students($school: ID!) {
+  students(school: $school) {
+    _id
+  }
+}`;

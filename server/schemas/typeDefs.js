@@ -86,7 +86,7 @@ const typeDefs = gql`
     user (email: String!): User
     tutor (userId: ID!): Tutor
     professor (userId: ID!): Professor
-    students (schoolId: ID!): [Student]
+    students (school: ID!): [Student]
     student (_id: ID!): Student
     studentAttendance (_id: ID!): [ClassAttendance]
     studentEvaluation (_id: ID!): [ClassEvaluation]
