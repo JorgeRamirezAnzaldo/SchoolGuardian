@@ -13,6 +13,8 @@ import Login from './pages/Login';
 import DashboardTutor from './pages/DashboardTutor';
 import StudentAttendance from './pages/studentAttendance';
 import StudentEvaluation from './pages/StudentEvaluation';
+import StudentAlert from './pages/StudentAlert';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -43,6 +45,7 @@ function App() {
               <Route path="/student/:id" element={ <DashboardTutor /> } />
               <Route path="/attendance/:id" element={ <StudentAttendance /> } />
               <Route path="/grades/:id" element={ <StudentEvaluation /> } />
+              <Route path="/alerts/:id" element={ <StudentAlert /> } />
             </Routes>
       </Router>
     </ApolloProvider>
