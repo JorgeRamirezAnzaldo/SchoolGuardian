@@ -4,7 +4,8 @@
         "name" : "John Smith",
         "telephone": "55-44-67-87-90",
         "email": "jhon.smith@oxford.com",
-        "password": "12345678"
+        "password": "12345678",
+        "usertype": "Principal"
     },
         
     {
@@ -12,27 +13,31 @@
         "name": "Jason Pearson",
         "telephone": "55-44-67-87-90",
         "email": "jason.pearson@boston.com",
-        "password": "12345678"
+        "password": "12345678",
+        "usertype": "Principal"
     },
     {
         "username": "Alex.Johnson.Oxford",
         "name": "Alex Johnson",
         "telephone": "55-44-67-87-90",
         "email": "alex.johnson@oxford.com",
-        "password": "12345678"
+        "password": "12345678",
+        "usertype": "Professor"
     },
     {
         "username": "Alexa.Samuels.Boston",
         "name": "Alexa Samuels",
         "telephone": "55-44-67-87-90",
         "email": "alexa.samuels@boston.com",
-        "password": "12345678"
+        "password": "12345678",
+        "usertype": "Professor"
     },
     {
         "username": "Christian.Horner.Tutor",
         "name": "Christian Horner",
         "telephone": "55-23-43-42-88",
         "email": "c.horner@redbullracing.com",
-        "password": "12345678"
+        "password": "12345678",
+        "usertype": "Tutor"
     }
     ]

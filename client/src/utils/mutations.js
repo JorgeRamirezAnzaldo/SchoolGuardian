@@ -22,3 +22,20 @@ export const SIGN_ALERT = gql`
     }
   }
 `;
+
+export const CREATE_ALERT = gql`
+  mutation CreateAlert($subject: String!, $message: String!, $from: ID!, $sign: Boolean!) {
+    createAlert(subject: $subject, message: $message, from: $from, sign: $sign) {
+      _id
+    }
+  }
+`;
+
+export const ASSIGN_ALERT = gql `
+  mutation AssignAlert($alertId: ID!, $studentId: ID!) {
+    assignAlert(alertId: $alertId, studentId: $studentId) {
+      _id
+      name
+    }
+  }
+`;

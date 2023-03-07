@@ -97,7 +97,6 @@ export const QUERY_TUTOR = gql`
         name
       }
       alerts {
-        _id
         subject
         message
         from{
@@ -148,3 +147,20 @@ export const QUERY_STUDEVAL = gql`
         }
     }
   }`;
+
+  export const QUERY_PROFESSOR = gql`
+    query Professor($userId: ID!) {
+      professor(userId: $userId) {
+        _id
+        principal
+        schoolId {
+          _id
+          name
+        }
+        userId {
+          name
+          usertype
+        }
+      }
+    }
+  `;

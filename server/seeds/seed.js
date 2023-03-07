@@ -51,12 +51,16 @@ db.once('open', async () => {
   //const tutorsOxford = await Tutor.insertMany(tutorDataOxford);
 
   professors[0].userId = users[0]._id
+  professors[0].schoolId = schools[0]._id
   await professors[0].save();
   professors[1].userId = users[1]._id
+  professors[1].schoolId = schools[1]._id
   await professors[1].save();
   professors[2].userId = users[2]._id
+  professors[2].schoolId = schools[0]._id
   await professors[2].save();
   professors[3].userId = users[3]._id
+  professors[3].schoolId = schools[1]._id
   await professors[3].save();
 
   const tutorsOxford = new Tutor({

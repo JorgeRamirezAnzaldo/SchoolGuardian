@@ -41,11 +41,13 @@ const typeDefs = gql`
     password: String!
     name: String!
     telephone: String!
+    usertype: String!
   }
 
   type Professor {
     _id: ID
     userId: User
+    schoolId: School
     principal: Boolean
     classes: [Class]
   }
@@ -83,6 +85,8 @@ const typeDefs = gql`
   type Query {
     user (email: String!): User
     tutor (userId: ID!): Tutor
+    professor (userId: ID!): Professor
+    students (schoolId: ID!): [Student]
     student (_id: ID!): Student
     studentAttendance (_id: ID!): [ClassAttendance]
     studentEvaluation (_id: ID!): [ClassEvaluation]
@@ -103,10 +107,10 @@ const typeDefs = gql`
   type Mutation{
     login (email: String!, password: String!): Auth
     signAlert(_id: ID!, sign: Boolean!): Alert
+    createAlert(subject: String!, message: String!, from: ID!, sign: Boolean!): Alert
+    assignAlert(alertId: ID!, studentId: ID!): Student
   }
  
-
-
 `;
 
 module.exports = typeDefs;

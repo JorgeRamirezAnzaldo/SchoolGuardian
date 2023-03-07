@@ -5,6 +5,10 @@ const professorSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    schoolId: {
+        type: Schema.Types.ObjectId,
+        ref: "School"
+    },
     principal: {
         type: Boolean,
         required: true
