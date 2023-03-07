@@ -86,9 +86,9 @@ const  StudentEvaluation = () => {
                                         {item.evaluations.map((subitem,index2) => (
                                             <>
                                              {subitem.score >= 6 ? (
-                                                <td className='center aligned positive'>{subitem.score}</td>
+                                                <td className='center aligned positive' data-tooltip={subitem.evaluationDate}>{subitem.score}</td>
                                              ):(
-                                                <td className='center aligned negative'>{subitem.score}</td>
+                                                <td className='center aligned negative' data-tooltip={subitem.evaluationDate}>{subitem.score}</td>
                                              )}
                                             </>
                                         ))}                                               

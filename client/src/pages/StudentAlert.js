@@ -10,16 +10,17 @@ import "../index.css";
 
 const   StudentAlert = () => {
     const {id} = useParams();
-            
+        console.log(id);
         const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
         const student = data?.student || {};
-
+        console.log(student);
         const [signState, setSignState] = useState(student.alerts);
         const [signAlert, {error}] = useMutation(SIGN_ALERT);
-
+        console.log(signState);
 
         const handleSignAlert=async(event)=>{
             const id=event.target.id;
+            console.log("Firma de alerta");
             let copySignState=JSON.parse(JSON.stringify(signState));
             console.log(copySignState);
             for(let i=0; i<copySignState.length;i++){
@@ -68,9 +69,9 @@ const   StudentAlert = () => {
                                 </thead>
                                 <tbody>
                                 {loading ? (
-                                <>
-                        <div >{loading}</div>
-                                </>
+                                    <>
+                                    
+                                    </>
                                 ) :
                                 (<>
                                 {

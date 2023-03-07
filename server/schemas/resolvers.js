@@ -44,11 +44,11 @@ const resolvers = {
         }
         throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
-      students: async(parent, {schoolId}, context) => {
+      students: async(parent, {school}, context) => {
 
         if (context.user) { //If user context is available
           return Student.find()
-          .where("schoolId").equals(schoolId);
+          .where("school").equals(school);
         }
         throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
