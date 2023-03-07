@@ -21,6 +21,10 @@ const userSchema = new Schema({
     telephone: {
         type: String,
         required: true
+    },
+    usertype: {
+        type: String,
+        required: true
     }
 
 })
