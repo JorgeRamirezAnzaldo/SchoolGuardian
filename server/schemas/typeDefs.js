@@ -1,7 +1,9 @@
+//Import gql from apollo-server-express
 const { gql } = require('apollo-server-express');
 
+//Define typeDefs
 const typeDefs = gql`
-
+  # Define type School
   type School {
     _id: ID
     name: String!
@@ -9,6 +11,7 @@ const typeDefs = gql`
     classes: [Class]
   }
 
+  # Define type Class
   type Class {
     _id : ID
     name: String!
@@ -18,6 +21,7 @@ const typeDefs = gql`
     students: [Student]
   }
 
+  # Define type ClassAttendance
   type ClassAttendance {
     _id: ID
     classId: Class!
@@ -26,6 +30,7 @@ const typeDefs = gql`
     attended: Boolean!
   }
 
+  # Define type ClassEvaluation
   type ClassEvaluation {
     _id: ID
     classId: Class!
@@ -34,6 +39,7 @@ const typeDefs = gql`
     score: Float!
   }
 
+  # Define type User
   type User {
     _id: ID
     username: String!
@@ -44,6 +50,7 @@ const typeDefs = gql`
     usertype: String!
   }
 
+  # Define type Professor
   type Professor {
     _id: ID
     userId: User
@@ -52,6 +59,7 @@ const typeDefs = gql`
     classes: [Class]
   }
 
+  # Define type Student
   type Student {
     _id: ID
     name: String!
@@ -63,12 +71,14 @@ const typeDefs = gql`
     alerts: [Alert]
   }
 
+  # Define type Tutor
   type Tutor {
     _id: ID
     userId: User
     students: [Student]
   }
 
+  # Define type Alert
   type Alert {
     _id: ID
     subject: String!
@@ -77,11 +87,13 @@ const typeDefs = gql`
     sign: Boolean!
   }
 
+  # Define type Auth
   type Auth {
     token: ID!
     user: User
   }
 
+  # Define queries that are available
   type Query {
     user (email: String!): User
     tutor (userId: ID!): Tutor
@@ -105,6 +117,7 @@ const typeDefs = gql`
     # student (registration: String!): Student
   }
 
+  # Define mutations that are available
   type Mutation{
     login (email: String!, password: String!): Auth
     signAlert(_id: ID!, sign: Boolean!): Alert
@@ -115,4 +128,5 @@ const typeDefs = gql`
  
 `;
 
+//Export typeDefs
 module.exports = typeDefs;

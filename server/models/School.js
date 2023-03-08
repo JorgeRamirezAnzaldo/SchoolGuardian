@@ -1,6 +1,7 @@
+//Import Schema and model from mongoose
 const { Schema, model } = require('mongoose');
-const Class = require('./Class');
 
+//Create schoolSchema with proper fields
 const schoolSchema = new Schema({
     name: {
         type: String,
@@ -16,7 +17,8 @@ const schoolSchema = new Schema({
     }],
 })
 
-
+//Create School model using the schoolSchema
 const School = model('School', schoolSchema);
 
+//Export School model
 module.exports = School;

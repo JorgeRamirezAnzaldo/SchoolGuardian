@@ -2,7 +2,6 @@
 import { gql } from '@apollo/client';
 
 //Export QUERY_ME
-
 export const QUERY_ME = gql`
   query me {
     me {
@@ -16,6 +15,7 @@ export const QUERY_ME = gql`
     }
   }`;
 
+//Export QUERY_TUTOR
 export const QUERY_TUTOR = gql`
   query Tutor($userId: ID!) {
     tutor(userId: $userId) {
@@ -38,48 +38,49 @@ export const QUERY_TUTOR = gql`
     }
   }`;
 
-
-  export const QUERY_STUDENT = gql`
-  query Student($_id: ID!) {
-    student(_id: $_id) {
+//Export QUERY_STUDENT
+export const QUERY_STUDENT = gql`
+query Student($_id: ID!) {
+  student(_id: $_id) {
+      _id
+      name
+      grade
+      registration
+      classes {
         _id
         name
         grade
-        registration
-        classes {
-          _id
-          name
-          grade
-          professor {
-            principal 
-          }
-          hour
+        professor {
+          principal 
         }
-        tutor {
-          _id
+        hour
+      }
+      tutor {
+        _id
+        userId{
+          name
+        }
+      }
+      school {
+        name
+      }
+      alerts {
+        _id
+        subject
+        message
+        from{
+          principal
           userId{
             name
           }
         }
-        school {
-          name
-        }
-        alerts {
-          _id
-          subject
-          message
-          from{
-            principal
-            userId{
-              name
-            }
-          }
-          sign
-        }
+        sign
+      }
     }
   }`;
 
-  export const QUERY_STUDATT = gql`
+//Export QUERY_STUDATT
+export const QUERY_STUDATT = gql`
   query StudentAttendance($id: ID!) {
     studentAttendance(_id: $id) {
         classId {
@@ -98,6 +99,7 @@ export const QUERY_TUTOR = gql`
     }
   }`;
 
+//Export QUERY_STUDEVAL
 export const QUERY_STUDEVAL = gql`
   query StudentEvaluation($id: ID!) {
     studentEvaluation(_id: $id) {
@@ -118,6 +120,7 @@ export const QUERY_STUDEVAL = gql`
     }
   }`;
 
+//Export QUERY_PROFESSOR
 export const QUERY_PROFESSOR = gql`
   query Professor($userId: ID!) {
     professor(userId: $userId) {
@@ -141,6 +144,7 @@ export const QUERY_PROFESSOR = gql`
   }
 `;
 
+//Export QUERY_STUDENTS
 export const QUERY_STUDENTS = gql`
 query Students($school: ID!) {
   students(school: $school) {
@@ -150,6 +154,7 @@ query Students($school: ID!) {
   }
 }`;
 
+//Export QUERY_CLASS
 export const QUERY_CLASS = gql`
   query Class($_id: ID!) {
     class(_id: $_id) {

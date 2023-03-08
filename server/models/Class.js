@@ -1,5 +1,7 @@
+//Import Schema and model from mongoose
 const { Schema, model } = require('mongoose');
 
+//Create classSchema with proper fields
 const classSchema = new Schema({
     name: {
         type: String,
@@ -24,7 +26,8 @@ const classSchema = new Schema({
 
 })
 
-
+//Create Class model using the classSchema
 const Class = model('Class', classSchema);
 
+//Export Class model
 module.exports = Class;

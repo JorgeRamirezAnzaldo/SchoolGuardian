@@ -1,17 +1,20 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
-import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
+//Import Auth methods
+import Auth from '../utils/auth';
 
+//Define Header function
 const Header = () => {
     let user;
+
+     //Validate if user is logged in
     if (Auth.loggedIn()){
-        user = Auth.getProfile();
+        user = Auth.getProfile(); //Get profile of the user which is logged in
     }
-    console.log(user);
 
-
-
-  return (
+    //Return all necessary elements to build the header
+    return (
         <header className="ui equal width padded grid">
             {Auth.loggedIn() ? (
                 <div className="row" style={{padding: '1.5em'}}>
@@ -42,4 +45,5 @@ const Header = () => {
   );
 };
 
+//Export Header page
 export default Header;

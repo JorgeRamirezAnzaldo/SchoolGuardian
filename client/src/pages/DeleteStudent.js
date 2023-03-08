@@ -1,57 +1,66 @@
+//Import react and necessary hooks/components from react-router-dom
 import React, { useState, useEffect } from 'react';
-import { Icon } from 'semantic-ui-react';
 import { useLocation, Navigate } from 'react-router-dom';
+//Import useQuery and useMutation hooks from @apollo/client
 import { useQuery, useMutation } from '@apollo/client';
+//Import QUERY_STUDENTS query
 import { QUERY_STUDENTS } from '../utils/queries';
+//Import DELETE_STUDENT mutation
 import { DELETE_STUDENT } from '../utils/mutations';
+//Import Auth methods
 import Auth from '../utils/auth';
 
+//Define DeleteStudents function
 const DeleteStudents = () => {
-
+    //Define location using useLocation hook
     const location = useLocation();
+    //Get the schoolId from the location.state
     const {schoolId} =location.state;
-    console.log(schoolId);
 
+    //Use query QUERY_STUDENTS to get the students by school
     const { loading, data } = useQuery(QUERY_STUDENTS,{ variables:{ school: schoolId}});
+    //Extract students data from data
     let students = data?.students || [];
+    //Define state variable to define the students data
     const [studentState, setStudentState] = useState([]);
 
+    //Use useEffect hook to change studentState using the data returned from db
     useEffect(() => {
-        if (data?.students) {
-          setStudentState(data.students);
+        if (data?.students) { //If there is data for students returned
+          setStudentState(data.students); //Set studentState with the students data
         }
       }, [data]);
 
-    //console.log(students);
-    console.log(studentState);
-
+    //Use DELETE_STUDENT mutation to delete a student
     const [deleteStudent] = useMutation(DELETE_STUDENT);
 
+    //Validate if user is not logged in
     if (!Auth.loggedIn()) {
         return (
-        <Navigate to="/Login"/>
+        <Navigate to="/Login"/> //Navigate to Login page
         );
     }
 
+    //Function to handle the student delete
     const handleDeleteStudent = async (event) =>{
-        const id = event.target.id;
-        console.log(id);
+        const id = event.target.id; //Get the id of the delete button 
         try{
+            //Delete student using its id
             const deleteStud = await deleteStudent({
                 variables: {
                     _id: id
                 }
             });
-            let studentsFilter = students.filter( (student) => student._id !== id)
-            console.log(studentsFilter)
+            //Create a new arrary of students without the deleted student
+            let studentsFilter = students.filter( (student) => student._id !== id);
+            //Change studentState with the updated students
             setStudentState(studentsFilter);
-
-
-        }catch(err){
-            console.error(err);
+        }catch(err){ //Catch any possible error
+            console.error(err); //Display error
         }
     }
 
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -65,6 +74,8 @@ const DeleteStudents = () => {
             fontFamily:"font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
         },
     }
+
+    //Return all necessary elements to display all students with an individual deletion button
     return(
         <div className="container" style={{marginTop: "80px"}}>
             <div className="ui equal width center aligned padded grid">
@@ -117,4 +128,5 @@ const DeleteStudents = () => {
 
 }
 
+//Export DeleteStudents page
 export default DeleteStudents;

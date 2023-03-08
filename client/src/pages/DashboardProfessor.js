@@ -1,8 +1,10 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+//Define DashboardProfessor function
 const DashboardProfessor = ({userId}) => {
-   
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -17,8 +19,8 @@ const DashboardProfessor = ({userId}) => {
             fontFamily:"font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
         },
     }
-
-  return (
+    //Return all necessary elements for DashboardProfessor page
+    return (
     <div className="container" style={{marginTop: "80px"}}>
         <div className="ui equal width center aligned padded grid">
             <div className="row" >
@@ -44,6 +46,8 @@ const DashboardProfessor = ({userId}) => {
     </div>
   );
 };
+
+//Export DashboardProfessor page
 export default DashboardProfessor;
 
 

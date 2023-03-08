@@ -1,5 +1,7 @@
+//Import Schema and model from mongoose
 const { Schema, model } = require('mongoose');
 
+//Create professorSchema with proper fields
 const professorSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
@@ -19,6 +21,8 @@ const professorSchema = new Schema({
     }]
 })
 
+//Create Professor model using the professorSchema
 const Professor = model('Professor', professorSchema);
 
+//Export Professor model
 module.exports = Professor;

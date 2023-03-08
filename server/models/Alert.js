@@ -1,6 +1,7 @@
+//Import Schema and model from mongoose
 const { Schema, model } = require('mongoose');
-const Class = require('./Class');
 
+//Create alertSchema with proper fields
 const alertSchema = new Schema({
     subject: {
         type: String,
@@ -20,6 +21,8 @@ const alertSchema = new Schema({
     },
 })
 
+//Create Alert model using the alertSchema
 const Alert = model('Alert', alertSchema);
 
+//Export Alert model
 module.exports = Alert;

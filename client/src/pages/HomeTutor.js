@@ -1,36 +1,43 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
+//Import useQuery hook from @apollo/client
 import { useQuery } from '@apollo/client';
+//Import QUERY_TUTOR query
 import { QUERY_TUTOR} from '../utils/queries';
 
+//Define HomeTutor function
 const HomeTutor = ({userId}) => {
+    //Use query QUERY_TUTOR to get the tutor by its usedId
     const { loading, data } = useQuery(QUERY_TUTOR,{ variables:{ userId: userId}});
-    console.log(data);
+    //Extract tutor data from data
     const tutor = data?.tutor || {};
-    console.log(tutor);
-    console.log(loading);
-  const styles ={
-    background:{
-        background:"rgb(94,3,222)",
-        background:"radial-gradient(circle, rgba(94,3,222,1) 0%, rgba(8,7,7,1) 100%)",
-        boxShadow:"none",
-        height: "400px",
-    },
-    title:{
-        color:"white",
-        marginBottom: "1.2em",
-        marginTop: "1em",
-        fontFamily:"font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    },
-}
-  return (
+
+    //Define styles for page
+    const styles ={
+        background:{
+            background:"rgb(94,3,222)",
+            background:"radial-gradient(circle, rgba(94,3,222,1) 0%, rgba(8,7,7,1) 100%)",
+            boxShadow:"none",
+            height: "400px",
+        },
+        title:{
+            color:"white",
+            marginBottom: "1.2em",
+            marginTop: "1em",
+            fontFamily:"font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        },
+    }
+
+    //Return all necessary elements to place the students associated to the tutor
+    return (
     <div className="container" style={{marginTop: "80px"}}>
         <div className="ui equal width center aligned padded grid">
             <div className="row" >
               <div className="column">
                     {loading ? (
                     <>
-            <div >{loading}</div>
+            <div >Loading...</div>
                     </>
                     ) :
                     (<div className="ui centered three stackable cards">{tutor.students.map((student) =>(
@@ -54,6 +61,8 @@ const HomeTutor = ({userId}) => {
         </div>
   );
 };
+
+//Export HomeTutor page
 export default HomeTutor;
 
 

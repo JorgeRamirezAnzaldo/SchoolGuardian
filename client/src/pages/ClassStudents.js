@@ -1,22 +1,30 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Icon } from 'semantic-ui-react';
+//Import useQuery hook from @apollo/client
 import { useQuery} from '@apollo/client';
+//Import QUERY_CLASS query
 import { QUERY_CLASS } from '../utils/queries';
+//Import Auth methods
 import Auth from '../utils/auth';
 
+//Define ClassesStudents function
 const ClassStudents = () => {
-
+    //Get the classId with useParams()
     const {classId}= useParams();
+    //Use query QUERY_CLASS to get the class data using its id
     const { loading, data } = useQuery(QUERY_CLASS,{ variables:{ _id: classId}});
+    //Extract class data from data
     let singleClass = data?.class || [];
-    console.log(singleClass);
 
+    //Validate if user is not logged in
     if (!Auth.loggedIn()) {
         return (
-        <Navigate to="/Login"/>
+        <Navigate to="/Login"/> //Navigate to Login page
         );
     }
+
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -31,6 +39,7 @@ const ClassStudents = () => {
         },
     }
 
+    //Return all necessary elements with proper class data in place
     return(
         <div className="container" style={{marginTop: "80px"}}>
             <div className="ui equal width center aligned padded grid">
@@ -72,4 +81,5 @@ const ClassStudents = () => {
 
 }
 
+//Export ClassStudents page
 export default ClassStudents;

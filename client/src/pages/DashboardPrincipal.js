@@ -1,23 +1,27 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+//Import useQuery hook from @apollo/client
 import { useQuery } from '@apollo/client';
+//Import QUERY_PROFESSOR query
 import { QUERY_PROFESSOR } from '../utils/queries';
 
+//Define DashboardPrincipal function
 const DashboardPrincipal = ({userId}) => {
-    console.log(userId);
+    //Use query QUERY_PROFESSOR to get the professor by userId
     const { loading, data } = useQuery(QUERY_PROFESSOR,{ variables:{ userId: userId}});
-    console.log(data);
+    //Extract professor data from data
     const professor = data?.professor || {};
-    console.log(professor);
     let schoolId;
     let professorId;
+    //If loading is false
     if (!loading){
+        //Get the professorId and schoolId from the professor data
         professorId = professor._id;
         schoolId = professor.schoolId._id;
-        console.log(schoolId);
     }
    
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -33,7 +37,8 @@ const DashboardPrincipal = ({userId}) => {
         },
     }
 
-  return (
+    //Return all necessary elements for DashboardPrincipal page
+    return (
     <div className="container" style={{marginTop: "80px"}}>
         <div className="ui equal width center aligned padded grid">
             <div className="row" >
@@ -80,6 +85,8 @@ const DashboardPrincipal = ({userId}) => {
     </div>
   );
 };
+
+//Export DashboadPrincipal page
 export default DashboardPrincipal;
 
 
