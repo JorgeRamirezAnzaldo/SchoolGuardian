@@ -1,9 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import { useQuery} from '@apollo/client';
 import { QUERY_CLASS } from '../utils/queries';
-
+import Auth from '../utils/auth';
 
 const ClassStudents = () => {
 
@@ -12,6 +12,11 @@ const ClassStudents = () => {
     let singleClass = data?.class || [];
     console.log(singleClass);
 
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
     const styles ={
         background:{
             background:"rgb(94,3,222)",

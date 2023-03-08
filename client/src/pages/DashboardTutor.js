@@ -1,14 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_STUDENT} from '../utils/queries';
+import Auth from '../utils/auth';
 
 
 const DashboardTutor = () => {
     const {id} = useParams();
     const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
     const classes=[];
+    
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
 
     if(data){
         for(let i=0; i<data.student.classes.length; i++){

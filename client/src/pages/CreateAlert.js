@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Icon } from 'semantic-ui-react';
-
-import { useMutation } from '@apollo/client';
-import { CREATE_ALERT } from '../utils/mutations';
-import { ASSIGN_ALERT } from '../utils/mutations';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { CREATE_ALERT, ASSIGN_ALERT } from '../utils/mutations';
 import { QUERY_STUDENTS} from '../utils/queries';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 const CreateAlert = () => {
     const location =useLocation();
@@ -19,6 +17,12 @@ const CreateAlert = () => {
     const [createAlert] = useMutation(CREATE_ALERT);
     const [assignAlert] = useMutation(ASSIGN_ALERT);
     const [alertsCreated, setAlertCreation] = useState("Initial");
+
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
 
     const handleInputChange = (event) => {
         const { name, value} = event.target;
@@ -85,8 +89,8 @@ const CreateAlert = () => {
         ) :
         (<>
         <div className="ui hidden divider"style={{padding: "1em"}}></div>
-        <div className="ui two column center aligned grid padded" style={{marginTop: "200px"}}>
-            <div className="column"style={{maxWidth: "750px", marginTop: "200px "}}>
+        <div className="ui two column center aligned grid padded" style={{marginTop: "30px"}}>
+            <div className="column"style={{maxWidth: "750px", marginTop: "30px "}}>
                 <i className="ui center aligned big circular bullhorn icon"style={{color: "white", marginTop:".5em"}}></i>
                 <div className="ui hidden divider"style={{margin:"0 1em"}}></div>
                 <h1 className="ui image header" style={{color: "white",marginBottom: "1.2em",  fontFamily:"'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}}>

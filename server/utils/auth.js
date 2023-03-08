@@ -33,8 +33,8 @@ module.exports = {
     return req;
   },
   //Function to sign token using jsonwebtoken
-  signToken: function ({ username, name, email, _id }) {
-    const payload = { username, name, email, _id };
+  signToken: function ({ username, name, usertype, email, _id }) {
+    const payload = { username, name, usertype, email, _id };
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },

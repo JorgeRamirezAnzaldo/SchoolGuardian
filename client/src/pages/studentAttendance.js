@@ -1,8 +1,9 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useParams,useLocation } from 'react-router-dom';
+import { useParams, useLocation, Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_STUDATT} from '../utils/queries';
+import Auth from '../utils/auth';
 
 const   StudentAttendance = () => {
     const {id} = useParams();
@@ -12,14 +13,20 @@ const   StudentAttendance = () => {
 
     const { loading, data } = useQuery(QUERY_STUDATT,{ variables:{ id: id}});
 
-        /*let fullData={
-            classText:'',
-            attendances: [],
-            absences: ''
-        };*/
-        let fullData = {};
-        const finalData=[];
-        let studentName = "";
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
+
+    /*let fullData={
+        classText:'',
+        attendances: [],
+        absences: ''
+    };*/
+    let fullData = {};
+    const finalData=[];
+    let studentName = "";
     if (!loading){
         for(let i = 0; i < classA.length; i++){
             fullData={};

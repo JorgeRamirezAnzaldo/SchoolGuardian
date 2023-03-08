@@ -1,13 +1,20 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_PROFESSOR } from '../utils/queries';
+import Auth from '../utils/auth';
 
 const ClassesProfessor = () => {
     const {userId} = useParams();
     const { loading, data } = useQuery(QUERY_PROFESSOR,{ variables:{ userId: userId}});
     const professor = data?.professor || {};
     console.log(professor);
+
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
 
     const styles ={
         background:{
