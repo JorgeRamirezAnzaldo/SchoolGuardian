@@ -1,9 +1,13 @@
+//Import react and react-dom
 import React from 'react';
 import ReactDOM from 'react-dom';
+//Import index.css
 import './index.css';
+//Import App and reportWebVitals
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//Render App in ReactDOM
 ReactDOM.render(
   <React.StrictMode>
     <App />

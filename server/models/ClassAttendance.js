@@ -1,5 +1,7 @@
+//Import Schema and model from mongoose
 const { Schema, model } = require('mongoose');
 
+//Create classAttendanceSchema with proper fields
 const classAttendanceSchema = new Schema({
     classId: {
         type: Schema.Types.ObjectId, 
@@ -21,6 +23,8 @@ const classAttendanceSchema = new Schema({
     }
 })
 
+//Create ClassAttendance model using the classAttendanceSchema
 const ClassAttendance = model('ClassAttendance', classAttendanceSchema);
 
+//Export ClassAttendance model
 module.exports = ClassAttendance;

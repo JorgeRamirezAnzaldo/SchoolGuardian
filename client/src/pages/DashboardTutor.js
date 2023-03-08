@@ -1,29 +1,38 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams, Navigate } from 'react-router-dom';
+//Import useQuery hook from @apollo/client
 import { useQuery } from '@apollo/client';
+//Import QUERY_STUDENT query
 import { QUERY_STUDENT} from '../utils/queries';
+//Import Auth methods
 import Auth from '../utils/auth';
 
-
+//Define DashboardTutor function
 const DashboardTutor = () => {
+    //Get student id using useParams()
     const {id} = useParams();
+    //Use query QUERY_STUDENT to get the student by its id
     const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
+    //Initialize classes
     const classes=[];
     
+    //Validate if user is not logged in
     if (!Auth.loggedIn()) {
         return (
-        <Navigate to="/Login"/>
+        <Navigate to="/Login"/> //Navigate to Login page
         );
     }
 
+    //If there is data from db
     if(data){
-        for(let i=0; i<data.student.classes.length; i++){
-            classes.push(data.student.classes[i]._id);
-
+        for(let i=0; i<data.student.classes.length; i++){ //For all the classes in the student data
+            classes.push(data.student.classes[i]._id); //Push class into the classes array
         }
-        console.log(classes);
     }
+
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -39,7 +48,8 @@ const DashboardTutor = () => {
         },
     }
 
-  return (
+    //Return all necessary elements for DashboardTutor page
+    return (
     <div className="container" style={{marginTop: "80px"}}>
         <div className="ui equal width center aligned padded grid">
             <div className="row" >
@@ -91,6 +101,8 @@ const DashboardTutor = () => {
     </div>
   );
 };
+
+//Export DashboardTutor page
 export default DashboardTutor;
 
 

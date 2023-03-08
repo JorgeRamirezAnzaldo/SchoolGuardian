@@ -1,34 +1,46 @@
+//Import react and necessary hooks/components from react-router-dom
 import React, { useState } from "react";
 import { Navigate } from 'react-router-dom';
+//Import elements from semantic-ui-react
 import { Modal, Button} from 'semantic-ui-react';
+//Import useMutation hook from @apollo/client
 import { useMutation } from '@apollo/client';
+//Import LOGIN_USER mutation
 import { LOGIN_USER } from '../utils/mutations';
+//Import Auth methods
 import Auth from '../utils/auth';
 
+//Define Login function
 const Login = () => {
-
+    //Define state variable for the login form data
     const [userFormData, setUserFormData] = useState({email: "", password: ""});
+    //Use mutation LOGIN_USER to login
     const [login, {error, data}] = useMutation(LOGIN_USER);
+    //Define state variable to control modal opening/closing
     const [open, setOpen] = useState(false);
 
+    //Function to handle input changes in login form
     const handleInputChange = (event) => {
-        const { name, value} = event.target;
-        setUserFormData({ ...userFormData, [name]: value});
+        const { name, value} = event.target; //Get the name and value of the input field changed
+        setUserFormData({ ...userFormData, [name]: value}); //Set the form data state with the new value
     }
 
+    //Function to handle the form submission to login
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
+            //Login to application using the form data
             const { loading, data } = await login ({
                 variables: { ...userFormData }
             })
+            //Use the proper auth method to perform login using the returned token
             Auth.login(data.login.token);
             
-        } catch (err) {
-            console.error(err);
-            setOpen(true);
-            //alert(err);
+        } catch (err) { //Catch any possible error
+            console.error(err); //Display error
+            setOpen(true); //Set Modal state to open
         }
+        //Clean input fields of the form
         setUserFormData({
             email: '',
             password: ''
@@ -36,6 +48,7 @@ const Login = () => {
         
     }
 
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -54,8 +67,9 @@ const Login = () => {
             color: "white"
         }
     }
-  return (
-        
+
+    //Return all necessary elements with login form
+    return (
     <>  
         <Modal
             onClose={() => setOpen(false)}
@@ -109,4 +123,5 @@ const Login = () => {
   );
 };
 
+//Export Login page
 export default Login;

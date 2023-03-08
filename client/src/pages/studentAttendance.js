@@ -1,21 +1,30 @@
+//Import react and necessary hooks/components from react-router-dom
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
 import { useParams, useLocation, Navigate } from 'react-router-dom';
+//Import Icon from semantic-ui-react
+import { Icon } from 'semantic-ui-react';
+//Import useQuery hook from @apollo/client
 import { useQuery } from '@apollo/client';
+//Import QUERY_STUDATT query
 import { QUERY_STUDATT} from '../utils/queries';
+//Import Auth methods
 import Auth from '../utils/auth';
 
-const   StudentAttendance = () => {
-    const {id} = useParams();
-            
+//Define StudentAttendance function
+const StudentAttendance = () => {
+    //Get student id using useParams()
+    const {id} = useParams(); 
+    //Define location using useLocation hook
     const location =useLocation();
+    //Get the classA with all student classes from the location.state
     const {classA} =location.state;
-
+    //Use query QUERY_STUDATT to get the student attendances by student id
     const { loading, data } = useQuery(QUERY_STUDATT,{ variables:{ id: id}});
 
+    //Validate if user is not logged in
     if (!Auth.loggedIn()) {
         return (
-        <Navigate to="/Login"/>
+        <Navigate to="/Login"/> //Navigate to Login page
         );
     }
 
@@ -24,40 +33,45 @@ const   StudentAttendance = () => {
         attendances: [],
         absences: ''
     };*/
+
+    //Initialize variables
     let fullData = {};
     const finalData=[];
     let studentName = "";
+
+    //If query has ended
     if (!loading){
-        for(let i = 0; i < classA.length; i++){
+        for(let i = 0; i < classA.length; i++){ //Loop over all student classes
             fullData={};
-            const filtered = data.studentAttendance.filter((studA) =>{
+            const filtered = data.studentAttendance.filter((studA) =>{ //Filter the student attendances using the class id
                 if(studA.classId._id===classA[i]){
                     return true;
 
                 }return false;
             })
+            //Obtain the total of absences using the filtered student attendances
             const sum = filtered.reduce((a, b) => {
                 if (b.attended == false){
                     a++;
                 }
                 return a;
             }, 0);
+            //Set the sum of absences
             fullData.absences = sum;
+            //Set the name of the class
             fullData.classText = filtered[0].classId.name;
-
+            //Set the student attendances filtered by class
             fullData.attendances=filtered;
-
+            //Add all data for the class to the final array
             finalData.push(fullData);
 
         }
-       console.log(finalData);
-       studentName = finalData[0].attendances[0].studentId.name;
+        //Get student name to display it
+        studentName = finalData[0].attendances[0].studentId.name;
 
     }
 
-    
-    
-
+    //Define styles for page
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -71,6 +85,8 @@ const   StudentAttendance = () => {
             fontFamily:"font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
         },
     }
+
+    //Return all necessary elements with student attendances table
     return(
         <div className="container" style={{marginTop: "80px"}}>
             <div className="ui equal width center aligned padded grid">
@@ -116,4 +132,6 @@ const   StudentAttendance = () => {
         </div>
     );
 }
+
+//Export StudentAttendance page
 export default StudentAttendance;

@@ -9,21 +9,19 @@ const expiration = '2h';
 
 //Export authentication functions
 module.exports = {
-  // función para nuestras rutas autenticadas
+  //Function for the authenticated routes
   authMiddleware: function ({req}) {
-    // permite que el token se envíe a través de req.query o encabezados
+    //Allow the token to be sent through req.query or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
     }
-
     if (!token) {
       return req;
     }
-
-    // verificar el token y obtener datos del usuario de él
+    //Verify token and obtain user data from it 
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
