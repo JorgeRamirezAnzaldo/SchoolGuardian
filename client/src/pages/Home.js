@@ -2,6 +2,7 @@ import React from "react";
 import HomeTutor from "./HomeTutor";
 import Header from "../components/Header";
 import DashboardPrincipal from "./DashboardPrincipal";
+import DashboardProfessor from "./DashboardProfessor";
 import { QUERY_ME } from "../utils/queries";
 import { useQuery } from '@apollo/client';
 
@@ -35,6 +36,13 @@ const Home = () => {
       <div className="container">
         <Header username = {user.name}/>
           <HomeTutor userId = {user._id}/>
+      </div>
+    );
+  }else if (user.usertype == "Professor"){
+    return (
+      <div className="container">
+        <Header username = {user.name}/>
+        <DashboardProfessor userId = {user._id}/>
       </div>
     );
   }
