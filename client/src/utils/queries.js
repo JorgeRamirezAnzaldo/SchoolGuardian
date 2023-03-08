@@ -131,6 +131,12 @@ export const QUERY_PROFESSOR = gql`
         name
         usertype
       }
+      classes{
+        _id
+        name
+        grade
+        hour
+      }
     }
   }
 `;
@@ -143,3 +149,15 @@ query Students($school: ID!) {
     registration
   }
 }`;
+
+export const QUERY_CLASS = gql`
+  query Class($_id: ID!) {
+    class(_id: $_id) {
+      name
+      students {
+        name
+        registration
+      }
+    }
+  }
+`;

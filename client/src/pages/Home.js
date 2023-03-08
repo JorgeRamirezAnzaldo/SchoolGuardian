@@ -27,21 +27,18 @@ const Home = () => {
   if (user.usertype == "Principal") {
     return (
       <div className="container">
-        <Header username = {user.name}/>
           <DashboardPrincipal userId = {user._id}/>
       </div>
     );
   } else if (user.usertype == "Tutor"){
     return (
       <div className="container">
-        <Header username = {user.name}/>
           <HomeTutor userId = {user._id}/>
       </div>
     );
   }else if (user.usertype == "Professor"){
     return (
       <div className="container">
-        <Header username = {user.name}/>
         <DashboardProfessor userId = {user._id}/>
       </div>
     );
@@ -51,3 +48,4 @@ const Home = () => {
 };
 
 export default Home;
+//<Header username = {user.name}/>

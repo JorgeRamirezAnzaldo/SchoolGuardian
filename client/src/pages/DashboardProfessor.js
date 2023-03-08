@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-const DashboardProfessor = () => {
-    
+const DashboardProfessor = ({userId}) => {
    
     const styles ={
         background:{
@@ -27,7 +25,7 @@ const DashboardProfessor = () => {
                 <div className="column">
                     <div className="ui centered three stackable cards">
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/classes`} >
+                            <Link to={`/classes/${userId}`}>
                                 <div className="content" >
                                     <i className="massive circular pencil alternate icon"style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider"></div>
