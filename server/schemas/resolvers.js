@@ -158,6 +158,14 @@ const resolvers = {
           return student;
         }
         throw new AuthenticationError('You need to be logged in!'); //Return Authentication Error if there is no context available
+      },
+
+      deleteStudent: async (parent, { _id }, context) => {
+        if (context.user) { //If user context is available
+          const student = await Student.findOneAndDelete({ _id: _id });
+          return student;
+        }
+        throw new AuthenticationError('You need to be logged in!'); //Return Authentication Error if there is no context available
       }
 
     }

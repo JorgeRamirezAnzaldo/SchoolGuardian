@@ -39,3 +39,12 @@ export const ASSIGN_ALERT = gql `
     }
   }
 `;
+
+export const DELETE_STUDENT = gql `
+  mutation DeleteStudent($_id: ID!) {
+    deleteStudent(_id: $_id) {
+      _id
+      name
+    }
+  }
+`;
