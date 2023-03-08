@@ -15,6 +15,7 @@ import StudentAttendance from './pages/studentAttendance';
 import StudentEvaluation from './pages/StudentEvaluation';
 import StudentAlert from './pages/StudentAlert';
 import CreateAlert from './pages/CreateAlert';
+import DeleteStudent from './pages/DeleteStudent';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -48,6 +49,7 @@ function App() {
               <Route path="/grades/:id" element={ <StudentEvaluation /> } />
               <Route path="/alerts/:id" element={ <StudentAlert /> } />
               <Route path="/createAlert" element={ <CreateAlert /> } />
+              <Route path="/deleteStudent" element={ <DeleteStudent /> } />
             </Routes>
       </Router>
     </ApolloProvider>

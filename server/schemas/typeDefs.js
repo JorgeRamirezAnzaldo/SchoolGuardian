@@ -109,6 +109,7 @@ const typeDefs = gql`
     signAlert(_id: ID!, sign: Boolean!): Alert
     createAlert(subject: String!, message: String!, from: ID!, sign: Boolean!): Alert
     assignAlert(alertId: ID!, studentId: ID!): Student
+    deleteStudent(_id: ID!): Student
   }
  
 `;

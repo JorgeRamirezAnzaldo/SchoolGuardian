@@ -139,5 +139,7 @@ export const QUERY_STUDENTS = gql`
 query Students($school: ID!) {
   students(school: $school) {
     _id
+    name
+    registration
   }
 }`;

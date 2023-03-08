@@ -45,7 +45,7 @@ const DashboardPrincipal = ({userId}) => {
                             <div >Loading...</div>
                             </>
                             ) :
-                            (
+                            (<>
                             <Link to={`/createAlert`} state={{schoolId: schoolId, professorId: professorId}}>
                                 <div className="content" >
                                     <i className="massive circular bullhorn icon"style={{color: "white", marginTop:".5em"}}></i>
@@ -57,6 +57,18 @@ const DashboardPrincipal = ({userId}) => {
                                     </h1>
                                 </div>
                             </Link>
+                            <Link to={`/deleteStudent`} state={{schoolId: schoolId}}>
+                                <div className="content" >
+                                    <i className="massive circular user icon"style={{color: "white", marginTop:".5em"}}></i>
+                                    <div className="ui hidden divider"></div>
+                                    <h1 className="ui image header" style={styles.title}>
+                                        <div className="content">
+                                            Delete Student
+                                        </div>
+                                    </h1>
+                                </div>
+                            </Link>
+                            </>
                             )}
                         </div>
                     </div>
