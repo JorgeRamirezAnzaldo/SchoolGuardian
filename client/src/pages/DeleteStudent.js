@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_STUDENTS } from '../utils/queries';
 import { DELETE_STUDENT } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const DeleteStudents = () => {
 
@@ -25,6 +26,12 @@ const DeleteStudents = () => {
     console.log(studentState);
 
     const [deleteStudent] = useMutation(DELETE_STUDENT);
+
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
 
     const handleDeleteStudent = async (event) =>{
         const id = event.target.id;

@@ -1,8 +1,6 @@
 import React from 'react';
 import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
-import { QUERY_ME } from '../utils/queries';
-
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     let user;
@@ -20,7 +18,7 @@ const Header = () => {
                         <div className=" column">
                             <h1 className="ui left aligned image header" style={{color: 'white'}}>
                                 <div className="ui left aligned content ">
-                                    {user.data.name}
+                                    {user.data.name}/ {user.data.usertype}
                                 <i className="big user icon size" style={{color: 'rgb(94,3,222)'}}></i>
                                 </div>
                             </h1>
@@ -30,11 +28,11 @@ const Header = () => {
                                 <div className="padded content">
                                 School Guardian
                                 <i className="shield alternate icon big" style={{width: '40px', color:'rgb(94,3,222)'}}></i>
-                                <i className="sign-out icon big" style={{width: '40px', color:'rgb(94,3,222)', marginLeft:'0.5em'}}></i>
+                                <Link to={`/Home`}>
+                                    <i className="home icon big" style={{width: '40px', color:'rgb(94,3,222)', marginLeft:'0.5em'}}></i>
+                                </Link>
+                                <i className="sign-out icon big" style={{width: '40px', color:'rgb(94,3,222)', marginLeft:'0.5em'}} onClick={Auth.logout}></i>
                                 </div>
-                                
-                                
-                                
                             </h1>
                         </div>
                 </div>

@@ -1,14 +1,20 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_STUDEVAL} from '../utils/queries';
+import Auth from '../utils/auth';
 
 const  StudentEvaluation = () => {
     const {id} = useParams();           
     const location =useLocation();
     const {classA} =location.state;
     const { loading, data } = useQuery(QUERY_STUDEVAL,{ variables:{ id: id}});
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
     /*let fullData={
         classText:'',
         evaluations: [],

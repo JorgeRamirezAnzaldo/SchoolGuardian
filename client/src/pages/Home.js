@@ -3,6 +3,7 @@ import HomeTutor from "./HomeTutor";
 import Header from "../components/Header";
 import DashboardPrincipal from "./DashboardPrincipal";
 import DashboardProfessor from "./DashboardProfessor";
+import { Navigate } from 'react-router-dom';
 import { QUERY_ME } from "../utils/queries";
 import { useQuery } from '@apollo/client';
 
@@ -18,9 +19,7 @@ const Home = () => {
 
   if (!user?.username) {
     return (
-      <h4>
-        You need to be logged in to see this. 
-      </h4>
+      <Navigate to="/Login"/>
     );
   }
 

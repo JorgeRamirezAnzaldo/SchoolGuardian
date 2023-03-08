@@ -38,14 +38,14 @@ const DashboardPrincipal = ({userId}) => {
         <div className="ui equal width center aligned padded grid">
             <div className="row" >
                 <div className="column">
-                    <div className="ui centered three stackable cards">
-                        <div className="ui centered card" style={styles.background}>
+                    <div className="ui centered three stackable cards">      
                         {loading ? (
                             <>
                             <div >Loading...</div>
                             </>
                             ) :
                             (<>
+                            <div className="ui centered card" style={styles.background}>
                             <Link to={`/createAlert`} state={{schoolId: schoolId, professorId: professorId}}>
                                 <div className="content" >
                                     <i className="massive circular bullhorn icon"style={{color: "white", marginTop:".5em"}}></i>
@@ -57,6 +57,8 @@ const DashboardPrincipal = ({userId}) => {
                                     </h1>
                                 </div>
                             </Link>
+                            </div>
+                            <div className="ui centered card" style={styles.background}>
                             <Link to={`/deleteStudent`} state={{schoolId: schoolId}}>
                                 <div className="content" >
                                     <i className="massive circular user icon"style={{color: "white", marginTop:".5em"}}></i>
@@ -68,9 +70,9 @@ const DashboardPrincipal = ({userId}) => {
                                     </h1>
                                 </div>
                             </Link>
+                            </div>
                             </>
-                            )}
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

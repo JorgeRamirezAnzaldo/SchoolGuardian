@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { Modal, Button} from 'semantic-ui-react';
-
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';

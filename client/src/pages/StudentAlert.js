@@ -1,42 +1,48 @@
 import React, { useState } from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useParams,useLocation } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_STUDENT} from '../utils/queries';
-
+import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { SIGN_ALERT } from '../utils/mutations';
 import "../index.css";
 
 const   StudentAlert = () => {
     const {id} = useParams();
-        console.log(id);
-        const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
-        const student = data?.student || {};
-        console.log(student);
-        const [signState, setSignState] = useState(student.alerts);
-        const [signAlert, {error}] = useMutation(SIGN_ALERT);
-        console.log(signState);
+    console.log(id);
+    const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
+    const student = data?.student || {};
+    console.log(student);
+    const [signState, setSignState] = useState(student.alerts);
+    const [signAlert, {error}] = useMutation(SIGN_ALERT);
+    console.log(signState);
 
-        const handleSignAlert=async(event)=>{
-            const id=event.target.id;
-            console.log("Firma de alerta");
-            let copySignState=JSON.parse(JSON.stringify(signState));
-            console.log(copySignState);
-            for(let i=0; i<copySignState.length;i++){
-                if(copySignState[i]._id===id){
-                    copySignState[i].sign=true;
+    if (!Auth.loggedIn()) {
+        return (
+        <Navigate to="/Login"/>
+        );
+    }
+
+    const handleSignAlert=async(event)=>{
+        const id=event.target.id;
+        console.log("Firma de alerta");
+        let copySignState=JSON.parse(JSON.stringify(signState));
+        console.log(copySignState);
+        for(let i=0; i<copySignState.length;i++){
+            if(copySignState[i]._id===id){
+                copySignState[i].sign=true;
                 }
-            }
-            setSignState(copySignState);
-            try{
-                const{data}=await signAlert({
-                    variables: {id:id,sign:true}
-                })
-            }catch(err){
-                console.error(err);
-            }
         }
+        setSignState(copySignState);
+        try{
+            const{data}=await signAlert({
+                variables: {id:id,sign:true}
+            })
+        }catch(err){
+            console.error(err);
+        }
+    }
     const styles ={
         background:{
             background:"rgb(94,3,222)",
