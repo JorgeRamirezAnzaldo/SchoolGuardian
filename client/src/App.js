@@ -10,12 +10,15 @@ import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Header from './components/Header'
 import DashboardTutor from './pages/DashboardTutor';
 import StudentAttendance from './pages/studentAttendance';
 import StudentEvaluation from './pages/StudentEvaluation';
 import StudentAlert from './pages/StudentAlert';
 import CreateAlert from './pages/CreateAlert';
 import DeleteStudent from './pages/DeleteStudent';
+import ClassesProfessor from './pages/ClassesProfessor';
+import ClassStudents from './pages/ClassStudents';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -40,6 +43,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <Header/>
       <Router>
             <Routes>
               <Route path="/" element={ <Login /> } />
@@ -50,6 +54,8 @@ function App() {
               <Route path="/alerts/:id" element={ <StudentAlert /> } />
               <Route path="/createAlert" element={ <CreateAlert /> } />
               <Route path="/deleteStudent" element={ <DeleteStudent /> } />
+              <Route path="/classes/:userId" element={ <ClassesProfessor /> } />
+              <Route path="/class/:classId" element={ <ClassStudents /> } />
             </Routes>
       </Router>
     </ApolloProvider>

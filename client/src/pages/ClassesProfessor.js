@@ -1,9 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_PROFESSOR } from '../utils/queries';
 
 const ClassesProfessor = () => {
-    
+    const {userId} = useParams();
+    const { loading, data } = useQuery(QUERY_PROFESSOR,{ variables:{ userId: userId}});
+    const professor = data?.professor || {};
+    console.log(professor);
+
     const styles ={
         background:{
             background:"rgb(94,3,222)",
@@ -24,21 +29,29 @@ const ClassesProfessor = () => {
         <div className="ui equal width center aligned padded grid">
             <div className="row" >
                 <div className="column">
+                {loading ? (
+                    <>
+                    <div >{loading}</div>
+                    </>
+                    ) :
+                    (
                     <div className="ui centered three stackable cards">
+                    {professor.classes.map((singleClass) => ( 
                         <div className="ui centered card" style={styles.background}>
-                            <Link to={`/classes/`} >
+                            <Link to={`/class/${singleClass._id}`} >
                                 <div className="content" >
                                     <i className="huge circular pencil alternate icon"style={{color: "white", marginTop:".5em"}}></i>
                                     <div className="ui hidden divider" style={{marginTop:".1em", marginBottom:".1em"}}></div>
                                     <h1 className="ui image header" style={styles.title}>
                                         <div className="content">
-                                            Classes
+                                            {singleClass.name}
                                         </div>
                                     </h1>
                                 </div>
                             </Link>
                         </div>
-                    </div>
+                        ))}
+                    </div>)}
                 </div>
             </div>
         </div>

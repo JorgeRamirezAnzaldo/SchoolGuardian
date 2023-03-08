@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Tutor, Student, ClassAttendance, ClassEvaluation, User, Alert, Professor } = require('../models');
+const { Tutor, Student, ClassAttendance, ClassEvaluation, User, Alert, Professor, Class } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -41,6 +41,17 @@ const resolvers = {
             path: 'classes',
             model: 'Class'
           });
+        }
+        throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
+      },
+      class: async(parent, { _id }, context) => {
+        if (context.user) { //If user context is available
+          return Class.findOne({ _id: _id }).populate(
+            {
+              path: 'students',
+              model: 'Student'
+            }
+          );
         }
         throw new AuthenticationError('You need to be logged in!'); //If there is no context send Authentication Error
       },
