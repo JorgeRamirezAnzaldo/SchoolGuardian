@@ -110,9 +110,9 @@ const DeleteStudents = () => {
                             <table className="ui celled padded table">
                                 <thead>
                                     <tr className='collapsing'>
-                                        <th className="center aligned" style={styles.background}>Student</th>
-                                        <th className="center aligned" style={styles.background}>Registration No.</th>
-                                        <th className="center aligned" style={styles.background}>Delete Student</th>
+                                        <th className="center aligned" style={styles.background}><h3>Student</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Registration No.</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Delete Student</h3></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,15 +124,15 @@ const DeleteStudents = () => {
                                     <>
                                         {studentState.map((student) => (
                                         <tr key={student._id}>
-                                            <td className="center aligned">{student.name}</td>
-                                            <td className="center aligned">{student.registration}</td>               
+                                            <td className="center aligned"><h3>{student.name}</h3></td>
+                                            <td className="center aligned"><h3>{student.registration}</h3></td>               
                                             <td className="center aligned">
                                             <button className="ui small red submit button"
                                                 id={student._id}
                                                 type="button"
                                                 onClick={() => setOpen({show:true, id: student._id})}
                                             >
-                                                Delete
+                                                <h3>Delete</h3>
                                             </button>
                                             </td>
                                         </tr>

@@ -114,10 +114,10 @@ const StudentAlert = () => {
                             <table className="ui celled stackable table">
                                 <thead>
                                     <tr>
-                                        <th className="center aligned" style={styles.background}>Subject</th>
-                                        <th className="center aligned" style={styles.background}>From</th>
-                                        <th className="center aligned" style={styles.background}>Message</th>
-                                        <th className="center aligned" style={styles.background}>Sign</th>
+                                        <th className="center aligned" style={styles.background}><h3>Subject</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>From</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Message</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Sign</h3></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,9 +130,9 @@ const StudentAlert = () => {
                                 {
                                     signState.map((alert) => (
                                     <tr key={alert._id}>
-                                        <td className="center aligned">{alert.subject}</td>
-                                        {alert.from.principal?(<td className="center aligned">Principal</td>):(<td className="center aligned">{alert.userId.name}</td>)}
-                                        <td className="center aligned">{alert.message}</td>
+                                        <td className="center aligned"><h3>{alert.subject}</h3></td>
+                                        {alert.from.principal?(<td className="center aligned"><h3>Principal</h3></td>):(<td className="center aligned"><h3>{alert.userId.name}</h3></td>)}
+                                        <td className="center aligned"><h3>{alert.message}</h3></td>
                                         {alert.sign?( 
                                             <td className='positive center aligned'><Icon color='green' size='huge' name='checkmark' /></td>
                                         ):(

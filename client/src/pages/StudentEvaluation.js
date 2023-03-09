@@ -89,29 +89,29 @@ const  StudentEvaluation = () => {
                             <table className="ui celled padded table">
                                 <thead>
                                     <tr>
-                                        <th className="center aligned" style={styles.background}>Class Name</th>
-                                        <th className="center aligned" style={styles.background}>Evaluation 1</th>
-                                        <th className="center aligned" style={styles.background}>Evaluation 2</th>
-                                        <th className="center aligned" style={styles.background}>Evaluation 3</th>
-                                        <th className="center aligned" style={styles.background}>Evaluation 4</th>
-                                        <th className="center aligned" style={styles.background}>Evaluation 5</th>
-                                        <th className="center aligned" style={styles.background}>Average score</th>
+                                        <th className="center aligned" style={styles.background}><h3>Class Name</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Evaluation 1</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Evaluation 2</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Evaluation 3</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Evaluation 4</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Evaluation 5</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Average score</h3></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {finalData.map((item,index) => (
                                     <tr key={index}>
-                                        <td className="center aligned" key={'class' + index}>{item.classText}</td>
+                                        <td className="center aligned" key={'class' + index}><h3>{item.classText}</h3></td>
                                         {item.evaluations.map((subitem, index2) => (
                                             <React.Fragment key={"ScoreCell" + index + "." + index2}>
                                              {subitem.score >= 6 ? (
-                                                <td className='center aligned positive' data-tooltip={subitem.evaluationDate} key={'posscore' + index + '.' + index2}>{subitem.score}</td>
+                                                <td className='center aligned positive' data-tooltip={subitem.evaluationDate} key={'posscore' + index + '.' + index2}><h3>{subitem.score}</h3></td>
                                              ):(
-                                                <td className='center aligned negative' data-tooltip={subitem.evaluationDate} key={'negscore' + index + '.' + index2}>{subitem.score}</td>
+                                                <td className='center aligned negative' data-tooltip={subitem.evaluationDate} key={'negscore' + index + '.' + index2}><h3>{subitem.score}</h3></td>
                                              )}
                                             </React.Fragment>
                                         ))}                                               
-                                        <td className="center aligned" key={'average' + index}>{item.average}</td>
+                                        <td className="center aligned" key={'average' + index}><h3>{item.average}</h3></td>
                                     </tr>
                                     ))}
                                   

@@ -50,8 +50,8 @@ const ClassStudents = () => {
                             <table className="ui celled padded table">
                                 <thead>
                                     <tr className='collapsing'>
-                                        <th className="center aligned" style={styles.background}>Student</th>
-                                        <th className="center aligned" style={styles.background}>Registration No.</th>
+                                        <th className="center aligned" style={styles.background}><h3>Student</h3></th>
+                                        <th className="center aligned" style={styles.background}><h3>Registration No.</h3></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,8 +63,8 @@ const ClassStudents = () => {
                                     <>
                                         {singleClass.students.map((student, index) => (
                                         <tr key={index}>
-                                            <td className="center aligned" key={"name" + index}>{student.name}</td>
-                                            <td className="center aligned" key={"reg" + index}>{student.registration}</td>               
+                                            <td className="center aligned" key={"name" + index}><h3>{student.name}</h3></td>
+                                            <td className="center aligned" key={"reg" + index}><h3>{student.registration}</h3></td>               
                                         </tr>
                                         ))}
                                     </>

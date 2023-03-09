@@ -31,10 +31,12 @@ const Header = () => {
                                 <div className="padded content">
                                 School Guardian
                                 <i className="shield alternate icon big" style={{width: '40px', color:'rgb(94,3,222)'}}></i>
+                                </div>
+                                <div className="padded content" style={{marginTop: '10px'}}>
                                 <Link to={`/Home`}>
-                                    <i className="home icon big" style={{width: '40px', color:'rgb(94,3,222)', marginLeft:'0.5em'}}></i>
+                                    <i className="home icon big" style={{width: '40px', color:'white', marginLeft:'0.5em'}}></i>
                                 </Link>
-                                <i className="sign-out icon big" style={{width: '40px', color:'rgb(94,3,222)', marginLeft:'0.5em'}} onClick={Auth.logout}></i>
+                                <i className="sign-out icon big" style={{width: '40px', color:'white', marginLeft:'0.5em'}} onClick={Auth.logout}></i>
                                 </div>
                             </h1>
                         </div>
