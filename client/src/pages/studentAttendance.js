@@ -97,29 +97,29 @@ const StudentAttendance = () => {
                             <table className="ui celled padded table">
                                 <thead>
                                     <tr>
-                                        <th className="center aligned" style={styles.background}>Class</th>
-                                        <th className="center aligned" style={styles.background}></th>
-                                        <th className="center aligned" style={styles.background}></th>
-                                        <th className="center aligned" style={styles.background}></th>
-                                        <th className="center aligned" style={styles.background}></th>
-                                        <th className="center aligned" style={styles.background}></th>
+                                        <th className="center aligned" style={styles.background}>Class Name</th>
+                                        <th className="center aligned" style={styles.background}>Class 1</th>
+                                        <th className="center aligned" style={styles.background}>Class 2</th>
+                                        <th className="center aligned" style={styles.background}>Class 3</th>
+                                        <th className="center aligned" style={styles.background}>Class 4</th>
+                                        <th className="center aligned" style={styles.background}>Class 5</th>
                                         <th className="center aligned" style={styles.background}>Total Absences</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {finalData.map((item,index) => (
-                                    <tr>
-                                        <td className="center aligned">{item.classText}</td>
+                                    <tr key={index}>
+                                        <td className="center aligned" key={"class" + index}>{item.classText}</td>
                                         {item.attendances.map((subitem,index2) => (
-                                            <>
+                                            <React.Fragment key={"AttendanceCell" + index + "." + index2}>
                                              {subitem.attended ? (
-                                                <td className='positive center aligned' data-tooltip={subitem.attendanceDate}><Icon color='green' size='large' name='checkmark' /></td>
+                                                <td className='positive center aligned' data-tooltip={subitem.attendanceDate} key={"attendance"+index+"."+index2}><Icon color='green' size='large' name='checkmark' /></td>
                                              ):(
-                                                <td className='negative center aligned' data-tooltip={subitem.attendanceDate}><Icon color='red' size='large' name='x' /></td>
+                                                <td className='negative center aligned' data-tooltip={subitem.attendanceDate} key={"attendance"+index+"."+index2}><Icon color='red' size='large' name='x' /></td>
                                              )}
-                                            </>
+                                            </React.Fragment>
                                         ))}                                               
-                                        <td className="center aligned">{item.absences}</td>
+                                        <td className="center aligned" key={"absences" + index}>{item.absences}</td>
                                     </tr>
                                     ))}
                                   

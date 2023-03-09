@@ -1,6 +1,8 @@
 //Import react and necessary hooks/components from react-router-dom
 import React, { useState } from "react";
 import { useLocation, Navigate } from 'react-router-dom';
+//Import elements from semantic-ui-react
+import { Modal, Button} from 'semantic-ui-react';
 //Import useQuery and useMutation hooks from @apollo/client
 import { useMutation, useQuery } from '@apollo/client';
 //Import CREATE_ALERT and ASSIGN_ALERT mutations
@@ -29,6 +31,8 @@ const CreateAlert = () => {
     const [assignAlert] = useMutation(ASSIGN_ALERT);
     //Define state variable to control alert creation status
     const [alertsCreated, setAlertCreation] = useState("Initial");
+    //Define state variable to control modal opening/closing
+    const [open, setOpen] = useState(false);
 
     //Validate if user is not logged in
     if (!Auth.loggedIn()) {
@@ -67,6 +71,7 @@ const CreateAlert = () => {
             setAlertCreation("Submitted"); //Set alert creation status to Submitted
         }catch(err){ //Catch any possible error
             console.error(err); //Diplay error
+            setOpen(true); //Set Modal state to open
         }
         //Clean input fields of the form
         setAlertFormData({
@@ -102,7 +107,23 @@ const CreateAlert = () => {
 
     //Return all necessary elements with alert creation form
     return ( 
-    <>  {loading ? (
+        <>  
+        <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+        >
+            <Modal.Header>Error when creating Alert</Modal.Header>
+            <Modal.Content>
+                <p>Please introduce subject and message</p>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button style={styles.button} onClick={() => setOpen(false)}>
+                Try again
+                </Button>
+            </Modal.Actions>
+        </Modal>
+        {loading ? (
             <>
             <div >Loading...</div>
             </>

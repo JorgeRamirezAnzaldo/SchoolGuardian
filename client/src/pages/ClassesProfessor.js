@@ -53,8 +53,8 @@ const ClassesProfessor = () => {
                     ) :
                     (
                     <div className="ui centered three stackable cards">
-                    {professor.classes.map((singleClass) => ( 
-                        <div className="ui centered card" style={styles.background}>
+                    {professor.classes.map((singleClass, index) => ( 
+                        <div className="ui centered card" style={styles.background} key={index}>
                             <Link to={`/class/${singleClass._id}`} >
                                 <div className="content" >
                                     <i className="huge circular pencil alternate icon"style={{color: "white", marginTop:".5em"}}></i>
