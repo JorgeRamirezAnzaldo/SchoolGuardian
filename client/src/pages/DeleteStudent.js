@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 //Import useQuery and useMutation hooks from @apollo/client
 import { useQuery, useMutation } from '@apollo/client';
+//Import Modal and Button from semantic-ui-react
+import { Modal, Button } from 'semantic-ui-react';
 //Import QUERY_STUDENTS query
 import { QUERY_STUDENTS } from '../utils/queries';
 //Import DELETE_STUDENT mutation
@@ -23,6 +25,8 @@ const DeleteStudents = () => {
     let students = data?.students || [];
     //Define state variable to define the students data
     const [studentState, setStudentState] = useState([]);
+    //Define state variable to control modal opening/closing
+    const [open, setOpen] = useState({show: false, id: ""});
 
     //Use useEffect hook to change studentState using the data returned from db
     useEffect(() => {
@@ -44,6 +48,7 @@ const DeleteStudents = () => {
     //Function to handle the student delete
     const handleDeleteStudent = async (event) =>{
         const id = event.target.id; //Get the id of the delete button 
+        setOpen({show:false, id: ""}); //Close Modal
         try{
             //Delete student using its id
             const deleteStud = await deleteStudent({
@@ -77,6 +82,25 @@ const DeleteStudents = () => {
 
     //Return all necessary elements to display all students with an individual deletion button
     return(
+        <>  
+        <Modal
+            onClose={() => setOpen({show: false, id: ""})}
+            onOpen={() => setOpen({show: true, id: open.id})}
+            open={open.show}
+        >
+            <Modal.Header>Please Confirm</Modal.Header>
+            <Modal.Content>
+                <p>Are you sure you want to delete this Student?</p>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button style={styles.button} id={open.id} onClick={handleDeleteStudent}>
+                Confirm
+                </Button>
+                <Button style={styles.button} onClick={() => setOpen({show:false, id: ""})}>
+                Cancel
+                </Button>
+            </Modal.Actions>
+        </Modal>
         <div className="container" style={{marginTop: "80px"}}>
             <div className="ui equal width center aligned padded grid">
                 <div className="row" >
@@ -106,7 +130,7 @@ const DeleteStudents = () => {
                                             <button className="ui small red submit button"
                                                 id={student._id}
                                                 type="button"
-                                                onClick={handleDeleteStudent}
+                                                onClick={() => setOpen({show:true, id: student._id})}
                                             >
                                                 Delete
                                             </button>
@@ -122,6 +146,7 @@ const DeleteStudents = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 
 

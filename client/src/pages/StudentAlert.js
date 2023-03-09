@@ -1,8 +1,8 @@
 //Import react, useState and necessary hooks/components from react-router-dom
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-//Import Icon from semantic-ui-react
-import { Icon } from 'semantic-ui-react';
+//Import Icon, Modal and Button from semantic-ui-react
+import { Icon, Modal, Button } from 'semantic-ui-react';
 //Import useQuery and useMutation hooks from @apollo/client
 import { useQuery, useMutation } from '@apollo/client';
 //Import QUERY_STUDENT query
@@ -22,8 +22,20 @@ const StudentAlert = () => {
     const { loading, data } = useQuery(QUERY_STUDENT,{ variables:{ _id: id}});
     //Extract student data from data
     const student = data?.student || {};
+
     //Define state variable to define the student alerts data
-    const [signState, setSignState] = useState(student.alerts);
+    const [signState, setSignState] = useState([]);
+    //Define state variable to control modal opening/closing
+    const [open, setOpen] = useState({show: false, id: ""});
+
+    //Use useEffect hook to change studentState using the data returned from db
+    useEffect(() => {
+        if (data?.student.alerts) { //If there is data for students returned
+          setSignState(data.student.alerts); //Set studentState with the students data
+        }
+      }, [data]);
+
+    
     //Use mutation SIGN_ALERT to set sign to true for an alert
     const [signAlert, {error}] = useMutation(SIGN_ALERT);
 
@@ -36,10 +48,11 @@ const StudentAlert = () => {
 
     //Function handle alert sign
     const handleSignAlert=async(event)=>{
-        const id=event.target.id; //Get the id of the alert to be signed
+        const alertId=event.target.id; //Get the id of the alert to be signed
+        setOpen({show:false, id: ""}); //Close Modal
         let copySignState=JSON.parse(JSON.stringify(signState)); //Copy the student alerts data
         for(let i=0; i<copySignState.length;i++){ //Loop over all the alerts of the student
-            if(copySignState[i]._id===id){ //If the alert id matches the id of the alert to be signed
+            if(copySignState[i]._id===alertId){ //If the alert id matches the id of the alert to be signed
                 copySignState[i].sign=true; //Change the sign to true
                 }
         }
@@ -47,11 +60,12 @@ const StudentAlert = () => {
         try{
             //Sign alert using its id
             const{data}=await signAlert({
-                variables: {id:id,sign:true}
+                variables: {id:alertId,sign:true}
             })
         }catch(err){ //Catch any possible error
             console.error(err); //Display error
         }
+        
     }
 
     //Define styles for page
@@ -72,6 +86,25 @@ const StudentAlert = () => {
 
     //Return all necessary elements to display student alerts and the possibility to sign them
     return(
+        <>  
+        <Modal
+            onClose={() => setOpen({show: false, id: ""})}
+            onOpen={() => setOpen({show: true, id: open.id})}
+            open={open.show}
+        >
+            <Modal.Header>Please Confirm</Modal.Header>
+            <Modal.Content>
+                <p>Are you sure you want to sign this Alert?</p>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button style={styles.button} id={open.id} onClick={handleSignAlert}>
+                Confirm
+                </Button>
+                <Button style={styles.button} onClick={() => setOpen({show:false, id: ""})}>
+                Cancel
+                </Button>
+            </Modal.Actions>
+        </Modal>
         <div className="container" style={{marginTop: "80px"}}>
             <div className="ui equal width center aligned padded grid">
                 <div className="row" >
@@ -103,7 +136,7 @@ const StudentAlert = () => {
                                         {alert.sign?( 
                                             <td className='positive center aligned'><Icon color='green' size='huge' name='checkmark' /></td>
                                         ):(
-                                            <td className='positive center aligned'><Icon color='black' size='huge' name='edit outline' onClick={handleSignAlert} id={alert._id} /></td>
+                                            <td className='positive center aligned'><Icon color='black' size='huge' name='edit outline' onClick={() => setOpen({show:true, id: alert._id})} id={alert._id} /></td>
                                         )}
                                     </tr>
                                 ))}</>)}
@@ -114,6 +147,7 @@ const StudentAlert = () => {
                 </div>
             </div>
         </div>
+    </>
     );
 }
 

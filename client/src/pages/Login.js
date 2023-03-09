@@ -9,6 +9,8 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 //Import Auth methods
 import Auth from '../utils/auth';
+//Import Logo image
+import LogoImage from '../images/Logo.png';
 
 //Define Login function
 const Login = () => {
@@ -91,9 +93,9 @@ const Login = () => {
         (<Navigate to="/Home"/>):(
         <>
         <div className="ui hidden divider"style={{padding: "1em"}}></div>
-        <div className="ui two column center aligned grid padded" style={{marginTop: "200px"}}>
-            <div className="column"style={{maxWidth: "750px", marginTop: "200px "}}>
-                    <img className="ui center aligned" src="./Images/08-01-23-010832.png" alt="MissingImage"></img>
+        <div className="ui two column center aligned grid padded" style={{marginTop: "80px"}}>
+            <div className="column"style={{maxWidth: "750px", marginTop: "80px "}}>
+                    <img className="ui center aligned" src={LogoImage} alt="MissingImage"></img>
                     <div className="ui hidden divider"style={{margin:"0 1em"}}></div>
                     <h1 className="ui image header" style={{color: "white",marginBottom: "1.2em",  fontFamily:"'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}}>
                         <div className="content">

@@ -61,10 +61,10 @@ const ClassStudents = () => {
                                     </tr>
                                 ):(
                                     <>
-                                        {singleClass.students.map((student) => (
-                                        <tr key={student._id}>
-                                            <td className="center aligned">{student.name}</td>
-                                            <td className="center aligned">{student.registration}</td>               
+                                        {singleClass.students.map((student, index) => (
+                                        <tr key={index}>
+                                            <td className="center aligned" key={"name" + index}>{student.name}</td>
+                                            <td className="center aligned" key={"reg" + index}>{student.registration}</td>               
                                         </tr>
                                         ))}
                                     </>
