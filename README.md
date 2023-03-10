@@ -29,7 +29,7 @@ Esta aplicación considera tres tipos de accesos, uno para cada tipo de usuario 
 ---
 ## Enlaces
 
-**[Aplicación desplegada ]( "click")**.
+**[Aplicación desplegada ](https://school-guardian.herokuapp.com/ "click")**.
 
 **[URL de repositorio de GitHub](https://github.com/JorgeRamirezAnzaldo/SchoolGuardian "click")**.
 
@@ -68,8 +68,8 @@ Esta aplicación considera tres tipos de accesos, uno para cada tipo de usuario 
 ---
 ## Uso
 
-* Ingresar a la aplicación desplegada en **[Heroku]("click")** o acceder desde el navegador con la dirección **[http://localhost:3000](http://localhost:3000)** después de haber ejecutado el comando `npm run develop` en la terminal de node como muestra la sección de [Instalación](#instalación).
-* Al ingresar a la aplicación es necesario iniciar sesión introduciendo credenciales (correo electrónico y contraseña), de acuerdo con el tipo usuario con el que desees acceder y después dar click en "Login" para ingresar a la aplicación.  
+* Ingresar a la aplicación desplegada en **[Heroku](https://school-guardian.herokuapp.com/ "click")** o acceder desde el navegador con la dirección **[http://localhost:3000](http://localhost:3000)** después de haber ejecutado el comando `npm run develop` en la terminal de node como muestra la sección de [Instalación](#instalación).
+* Al ingresar a la aplicación es necesario iniciar sesión introduciendo credenciales (correo electrónico y contraseña), de acuerdo con el tipo usuario con el que desees acceder y después dar click en `Submit` para ingresar a la aplicación.  
 
     ![Login](./images/Login.jpg)  
 
