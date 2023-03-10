@@ -71,7 +71,7 @@ Esta aplicación considera tres tipos de accesos, uno para cada tipo de usuario 
 * Ingresar a la aplicación desplegada en **[Heroku](https://school-guardian.herokuapp.com/ "click")** o acceder desde el navegador con la dirección **[http://localhost:3000](http://localhost:3000)** después de haber ejecutado el comando `npm run develop` en la terminal de node como muestra la sección de [Instalación](#instalación).
 * Al ingresar a la aplicación es necesario iniciar sesión introduciendo credenciales (correo electrónico y contraseña), de acuerdo con el tipo usuario con el que desees acceder y después dar click en `Submit` para ingresar a la aplicación.  
 
-    ![Login](./images/Login.jpg)  
+    ![Login](./images/Login.JPG)  
 
     * Para acceder como Director/Principal, se pueden utilizar las siguientes credenciales:
         - Correo electrónico: `jhon.smith@oxford.com`
@@ -84,105 +84,105 @@ Esta aplicación considera tres tipos de accesos, uno para cada tipo de usuario 
         - Contraseña: `12345678`
 
 * Si las credenciales ingresadas son incorrectas, aparecerá una ventana con un mensaje de error. Al presionar el botón de `Try again`, la ventana se cerrará y podrá repetirse el proceso de inicio de sesión.  
-    ![Error Login](./images/ErrorLogin.jpg)  
+    ![Error Login](./images/ErrorLogin.JPG)  
 * Dependiendo del tipo de usuario con el que se inicie sesión, se tendrá acceso a diferentes secciones/páginas. A continuación, se describen las páginas que puede visualizar cada tipo de usuario y las acciones que puede llevar a cabo cada uno de ellos.
 
 ### Páginas/Acciones para Director/Principal
 
 * Al acceder con las credenciales de Director/Principal, se presentará la siguiente página inicial.  
-    ![Home Principal](./images/HomePrincipal.jpg)  
+    ![Home Principal](./images/HomePrincipal.JPG)  
 
 #### Creación de Alertas/Anuncios
 
 * Si se presiona la opción de `Create Alert`:  
-    ![Press Create Alert](./images/PressCreateAlert.jpg)  
+    ![Press Create Alert](./images/PressCreateAlert.JPG)  
 * Entonces se abrirá una página donde se muestra un formulario para crear una nueva Alerta/Anuncio.    
-    ![Create Alert Page](./images/CreateAlertPage.jpg)    
+    ![Create Alert Page](./images/CreateAlertPage.JPG)    
 * En esta página se puede crear alguna Alerta/Anuncio que se enviará/asignará a todos los alumnos de la escuela a la que pertenece el Director/Principal.  
 * Para crear la nueva Alerta/Anuncio es necesario introducir Subject/Asunto y Message/Mensaje y presionar el botón de `Submit`, tal como se aprecia en la siguiente imagen.    
-    ![Alert Form](./images/AlertForm.jpg)  
+    ![Alert Form](./images/AlertForm.JPG)  
 * Cuando se terminen de crear y asignar las Alertas/Anuncios, se podrá visualizar un mensaje de éxito indicando que el proceso ha terminado.  
-    ![Alert Success](./images/AlertSuccess.jpg)  
+    ![Alert Success](./images/AlertSuccess.JPG)  
 * Si faltó introducir un dato en el formulario, la aplicación mostrará una ventana con el mensaje de error, indicando al usuario que debe introducir todos los datos.  
-    ![Alert Error Modal](./images/AlertErrorModal.jpg)  
+    ![Alert Error Modal](./images/AlertErrorModal.JPG)  
 
 #### Eliminación de Alumnos/Estudiantes
 
 * Si se presiona la opción de `Delete Student`:  
-    ![Press Delete Student](./images/PressDeleteStudent.jpg)  
+    ![Press Delete Student](./images/PressDeleteStudent.JPG)  
 * Entonces se abrirá una página donde se muestra una tabla con todos los estudiantes que pertenecen a la escuela del Principal/Director.      
-    ![Delete Student Page](./images/DeleteStudentPage.jpg)    
+    ![Delete Student Page](./images/DeleteStudentPage.JPG)    
 * La tabla muestra una serie de filas, cada una con el nombre del estudiante, su matrícula y un botón para borrar cada uno de los estudiantes.  
 * Por lo tanto, desde esta página se pueden eliminar o dar de baja estudiantes de la escuela a la que pertenece el Director/Principal.  
 * Para borrar el estudiante deseado, es necesario presionar el botón `Delete` en la fila del estudiante correspondiente.  
-    ![Delete Student](./images/DeleteStudent.jpg) 
+    ![Delete Student](./images/DeleteStudent.JPG) 
 * Al presionar sobre cualquier botón `Delete`, aparecerá una ventana donde el usuario tendrá que confirmar que desea borrar el estudiante.  
-    ![Delete Student Confirmation](./images/DeleteConfirmation.jpg)   
+    ![Delete Student Confirmation](./images/DeleteConfirmation.JPG)   
 * Al confirmar la eliminación del estudiante, este desaparecerá de la tabla de forma inmediata.
 
 ### Páginas/Acciones para Maestro/Professor
 
 * Al acceder con las credenciales de Maestro/Professor, se presentará la siguiente página inicial.  
-    ![Home Professor](./images/HomeProfessor.jpg)  
+    ![Home Professor](./images/HomeProfessor.JPG)  
 
 #### Visualizar Clases y Estudiantes por clase
 * Si se presiona la opción de `Classes`:  
-    ![Press Classes](./images/PressClasses.jpg)      
+    ![Press Classes](./images/PressClasses.JPG)      
 * Entonces se abrirá una página donde se pueden visualizar todas las clases que imparte el Maestro/Professor.  
-    ![Classes Page](./images/ClassesPage.jpg)  
+    ![Classes Page](./images/ClassesPage.JPG)  
 * Si se presiona sobre cualquiera de las clases impartidas por el Maestro/Professor:  
-    ![Press Class](./images/PressClass.jpg)   
+    ![Press Class](./images/PressClass.JPG)   
 * Entonces se abrirá una página donde se puede visualizar una tabla con los alumnos/estudiantes inscritos en esa clase. Cada fila incluye el nombre y la matrícula del estudiante.  
-    ![Class Students Table](./images/ClassStudents.jpg)   
+    ![Class Students Table](./images/ClassStudents.JPG)   
 
 ### Páginas/Acciones para Padre de Familia/Tutor
 
 * Al acceder con las credenciales de Padre de Familia/Tutor, se presentará la siguiente página inicial.    
-    ![Home Tutor](./images/HomeTutor.jpg)  
+    ![Home Tutor](./images/HomeTutor.JPG)  
 * Esta página inicial despliega los estudiantes asociados al Padre de Familia/Tutor.
 * Para visualizar las asistencias, evaluaciones y alertas de cada estudiante, es necesario presionar el estudiante deseado:  
-    ![Press Student](./images/PressStudent.jpg)  
+    ![Press Student](./images/PressStudent.JPG)  
 * Al presionar el estudiante deseado, se mostrará una página con tres opciones: `Grades`, `Attendance` y `Alerts`.  
-    ![Student Options](./images/StudentOptions.jpg) 
+    ![Student Options](./images/StudentOptions.JPG) 
 
 ### Visualizar Asistencias a clases de un Estudiante
 
 * Si se presiona la opción de `Attendance`:  
-    ![Press Attendance](./images/PressAttendance.jpg)  
+    ![Press Attendance](./images/PressAttendance.JPG)  
 * Entonces se abrirá una página donde se muestra el nombre del estudiante y una tabla con todas las clases en las que se encuentra inscrito, así como sus asistencias a lo largo de 5 días. Además, la tabla incluye una columna donde se contabilizan el número de inasistencias por clase.  
-    ![Student Attendances](./images/StudentAttendances.jpg) 
+    ![Student Attendances](./images/StudentAttendances.JPG) 
 * Asimismo, cada vez que se posiciona el cursor sobre el ícono de asistencia o inasistencia en una de las celdas de la tabla, se muestra la fecha del día en el que se tomó la inasistencia.  
-    ![Attendance Date](./images/AttendanceDate.jpg)   
+    ![Attendance Date](./images/AttendanceDate.JPG)   
 
 ### Visualizar Evaluaciones de clases de un Estudiante
 
 * Si se presiona la opción de `Grades`:  
-    ![Press Grades](./images/PressGrades.jpg)   
+    ![Press Grades](./images/PressGrades.JPG)   
 * Entonces se abrirá una página donde se muestra el nombre del estudiante y una tabla con todas las clases en las que se encuentra inscrito, así como las calificaciones para cinco evaluaciones. Además, la tabla incluye una columna donde se muestra el promedio de las calificaciones.  
-    ![Student Grades](./images/StudentGrades.jpg) 
+    ![Student Grades](./images/StudentGrades.JPG) 
 * Asimismo, cada vez que se posiciona el cursor sobre la calificación en una de las celdas de la tabla, se muestra la fecha del día en el que se llevó a cabo la evaluación.  
-    ![Evaluation Date](./images/EvaluationDate.jpg)  
+    ![Evaluation Date](./images/EvaluationDate.JPG)  
 
 ### Firmar Alertas/Anuncios de un Estudiante
 
 * Si se presiona la opción de `Alerts`:  
-    ![Press Alerts](./images/PressAlerts.jpg)   
+    ![Press Alerts](./images/PressAlerts.JPG)   
 * Entonces se abrirá una página donde se muestra una tabla con las alertas/anuncios asignadas al estudiante. Cada una de las filas contiene el asunto, quién envía la alerta/anuncio, el mensahe de la alerta/anuncio y un ícono.    
-    ![Student Alerts](./images/StudentAlerts.jpg)    
+    ![Student Alerts](./images/StudentAlerts.JPG)    
 * Si el ícono es el siguiente:  
-        ![Sign Alert Icon](./images/SignAlertIcon.jpg)   
+        ![Sign Alert Icon](./images/SignAlertIcon.JPG)   
     * Entonces la alerta puede ser firmada por el Padre de Familia/Tutor.  
 * Cuando se presiona el ícono anterior, se mostrará una ventana donde se pedirá confirmación por parte del usuario:  
-        ![Confirm Sign](./images/ConfirmSign.jpg)  
+        ![Confirm Sign](./images/ConfirmSign.JPG)  
     * Al confirmar la firma de la alerta, esta quedará firmada y el ícono cambiará al siguiente:  
-        ![Alert Signed Icon](./images/AlertSignedIcon.jpg)  
+        ![Alert Signed Icon](./images/AlertSignedIcon.JPG)  
     * Si no se confirma la decisión, entonces la alerta quedará sin ser firmada.  
 * Una vez que la alerta/anuncio ha sido firmada ya no puede regresar a su estado anterior.  
 
 * Para regresar a la página inicial de cada tipo de usuario, se puede presionar el ícono de `Home` ubicado en la esquina superior derecha de la aplicación.  
-    ![Go Home](./images/GoHome.jpg)  
+    ![Go Home](./images/GoHome.JPG)  
 * Para cerrar sesión, se puede presionar el ícono de la siguiente imagen, ubicado en la esquina superior derecha de la aplicación.   
-    ![Logout](./images/Logout.jpg)  
+    ![Logout](./images/Logout.JPG)  
     * Esta acción hará que se muestre la página de Inicio de sesión.  
 
 ---
@@ -191,10 +191,10 @@ Esta aplicación considera tres tipos de accesos, uno para cada tipo de usuario 
     - Abrir el siguiente link **[URL de repositorio de GitHub](https://github.com/JorgeRamirezAnzaldo/SchoolGuardian "click")**.
     - Hacer click en "<> Code".
 
-        ![Captura de pantalla para clonar repositorio](./images/CloneRepo.jpg)
+        ![Captura de pantalla para clonar repositorio](./images/CloneRepo.JPG)
     - Copiar la direccion del repositorio bajo la opción "SSH".
 
-        ![Captura de pantalla para copiar direccion URL del repositorio](./images/CopyURL.jpg)
+        ![Captura de pantalla para copiar direccion URL del repositorio](./images/CopyURL.JPG)
     - Abrir GitBash.
     - Ir a la ubicacion en donde quieres clonar el repositorio.
     - Escribir **`git clone`** y pegar la url antes copiada.
